@@ -610,26 +610,29 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
         </div>
       </div>
 
-      {/* ════════════════ VIEW 1: ALL FIRMS TABLE (EXACT MATCH TO ATTACHED IMAGE) ════════════════ */}
+      {/* ════════════════ VIEW 1: ALL FIRMS TABLE (GLOSSY, GLASSY & YELLOW THEME) ════════════════ */}
       {activeTab === 'all_firms' && (
         <div className="space-y-4">
           {/* Top Controls: Filter Pills (Left) & Search + A-Z Sort (Right) */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             {/* Category Pills: All | Forex | Crypto | Futures */}
-            <div className="inline-flex items-center bg-[#0b0c10] border border-neutral-800/80 rounded-xl p-1 gap-1">
+            <div className="inline-flex items-center bg-[#0a0b0e]/80 backdrop-blur-md border border-white/10 rounded-xl p-1.5 gap-1.5 shadow-md">
               {(['All', 'Forex', 'Crypto', 'Futures'] as const).map((cat) => {
                 const isActive = firmCategory === cat;
                 return (
                   <button
                     key={cat}
                     onClick={() => setFirmCategory(cat)}
-                    className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    className={`relative px-3.5 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 cursor-pointer select-none ${
                       isActive
-                        ? 'border border-[#a6ff00] text-[#a6ff00] bg-[#a6ff00]/10 shadow-[0_0_10px_rgba(166,255,0,0.18)]'
-                        : 'text-neutral-400 hover:text-white border border-transparent'
+                        ? 'bg-gradient-to-b from-[#F0C41B]/20 via-[#F0C41B]/10 to-[#F0C41B]/5 text-[#F0C41B] border border-[#F0C41B]/90 shadow-[0_2px_8px_rgba(240,196,27,0.18)]'
+                        : 'text-neutral-400 hover:text-white hover:bg-white/[0.04] border border-transparent'
                     }`}
                   >
-                    {cat}
+                    {isActive && (
+                      <span className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#ffe875] to-transparent rounded-full" />
+                    )}
+                    <span className="relative z-10 tracking-wide">{cat}</span>
                   </button>
                 );
               })}
@@ -643,14 +646,14 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                   placeholder="Search Firm Name"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-[#0b0c10] border border-neutral-800/90 focus:border-[#a6ff00]/60 text-white text-xs pl-3.5 pr-8 py-2 rounded-xl placeholder:text-neutral-500 focus:outline-none transition-colors"
+                  className="w-full bg-[#0a0b0e]/80 backdrop-blur-md border border-white/10 focus:border-[#F0C41B]/60 text-white text-xs pl-3.5 pr-8 py-2 rounded-xl placeholder:text-neutral-500 focus:outline-none transition-all shadow-sm"
                 />
-                <Search size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none" />
+                <Search size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
               </div>
 
               <button
                 onClick={() => setAlphaAsc(!alphaAsc)}
-                className="bg-[#0b0c10] hover:bg-white/5 border border-neutral-800/90 hover:border-neutral-700 text-white rounded-xl px-3.5 py-2 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer select-none shrink-0"
+                className="bg-[#0a0b0e]/80 backdrop-blur-md hover:bg-white/[0.08] border border-white/10 hover:border-[#F0C41B]/40 text-neutral-200 hover:text-[#F0C41B] rounded-xl px-3.5 py-2 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer select-none shrink-0 shadow-sm"
                 title="Sort Alphabetically"
               >
                 <span>A-Z</span>
@@ -658,13 +661,13 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
             </div>
           </div>
 
-          {/* Table Container */}
-          <div className="w-full overflow-hidden rounded-2xl bg-[#090a0d] border border-neutral-800/40 shadow-2xl">
-            <div className="overflow-x-auto">
+          {/* Table Container: Smooth Glassy Translucent */}
+          <div className="w-full overflow-hidden rounded-xl sm:rounded-2xl bg-[#08090d]/90 backdrop-blur-xl border border-white/10 shadow-2xl">
+            <div className="overflow-x-auto scrollbar-thin">
               <table className="w-full text-left border-collapse min-w-[760px]">
                 {/* Table Header */}
                 <thead>
-                  <tr className="border-b border-neutral-800/40 text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
+                  <tr className="border-b border-white/10 bg-[#0c0d12] text-[11px] font-bold text-neutral-400 uppercase tracking-wider">
                     <th className="py-3.5 px-4 font-bold">FIRM NAME</th>
                     <th className="py-3.5 px-4 font-bold">CATEGORY</th>
                     <th className="py-3.5 px-4 font-bold">OFFER</th>
@@ -674,7 +677,7 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                 </thead>
 
                 {/* Table Body */}
-                <tbody className="divide-y divide-neutral-800/40">
+                <tbody className="divide-y divide-white/[0.05]">
                   {filteredFirms.length === 0 ? (
                     <tr>
                       <td colSpan={5} className="py-12 text-center text-neutral-400 text-sm">
@@ -685,7 +688,7 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                               setSearchQuery('');
                               setFirmCategory('All');
                             }}
-                            className="px-4 py-1.5 rounded-lg bg-[#111318] border border-neutral-700 text-xs font-bold text-[#a6ff00] hover:bg-white/5 cursor-pointer"
+                            className="px-4 py-1.5 rounded-lg bg-[#111318] border border-white/10 text-xs font-bold text-[#F0C41B] hover:bg-white/5 cursor-pointer"
                           >
                             Reset Search
                           </button>
@@ -699,33 +702,33 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                       return (
                         <tr
                           key={firm.id}
-                          className="hover:bg-white/[0.02] transition-colors group"
+                          className="hover:bg-white/[0.025] transition-colors group"
                         >
                           {/* 1. FIRM NAME */}
-                          <td className="py-4 px-4 align-middle">
+                          <td className="py-3.5 px-4 align-middle">
                             <div className="flex items-center gap-3">
                               <FirmIcon name={firm.name} url={firm.logo} />
-                              <span className="text-sm font-bold text-white group-hover:text-[#a6ff00] transition-colors">
+                              <span className="text-xs sm:text-sm font-bold text-white group-hover:text-[#F0C41B] transition-colors">
                                 {firm.name}
                               </span>
                             </div>
                           </td>
 
                           {/* 2. CATEGORY */}
-                          <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <span className="text-sm text-neutral-400 font-medium">
+                          <td className="py-3.5 px-4 align-middle whitespace-nowrap">
+                            <span className="inline-block bg-white/[0.04] border border-white/10 text-neutral-300 text-xs font-semibold px-2.5 py-1 rounded-lg backdrop-blur-sm">
                               {firm.category}
                             </span>
                           </td>
 
                           {/* 3. OFFER */}
-                          <td className="py-4 px-4 align-middle whitespace-nowrap relative">
+                          <td className="py-3.5 px-4 align-middle whitespace-nowrap relative">
                             <div>
                               <div className="text-[10px] text-neutral-400 font-medium leading-none">
                                 Get Upto
                               </div>
                               <div className="flex items-center gap-1.5 mt-0.5">
-                                <span className="text-sm font-black text-[#a6ff00]">
+                                <span className="text-sm font-black text-[#F0C41B]">
                                   {firm.discount}% OFF
                                 </span>
                                 <button
@@ -734,7 +737,7 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                                     e.stopPropagation();
                                     setActiveInfoId(isInfoOpen ? null : firm.id);
                                   }}
-                                  className="text-neutral-500 hover:text-neutral-300 transition-colors cursor-pointer"
+                                  className="text-neutral-400 hover:text-[#F0C41B] transition-colors cursor-pointer"
                                   title={firm.description}
                                 >
                                   <Info size={13} />
@@ -742,41 +745,47 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                               </div>
                             </div>
 
-                            {/* Info Tooltip Popover */}
+                            {/* Info Tooltip Popover (Frosted Glass) */}
                             {isInfoOpen && (
-                              <div className="absolute left-4 top-12 z-30 bg-[#111318] border border-[#a6ff00]/40 rounded-xl p-3 shadow-2xl max-w-xs text-xs text-neutral-200 backdrop-blur-lg animate-fade-in">
-                                <div className="font-bold text-[#a6ff00] mb-1">{firm.name} Deal Details</div>
+                              <div className="absolute left-4 top-12 z-30 bg-[#0e1017]/95 border border-[#F0C41B]/30 rounded-xl p-3 shadow-2xl max-w-xs text-xs text-neutral-200 backdrop-blur-xl animate-fade-in">
+                                <div className="font-bold text-[#F0C41B] mb-1">{firm.name} Deal Details</div>
                                 <p className="text-neutral-300">{firm.description}</p>
                               </div>
                             )}
                           </td>
 
-                          {/* 4. DISCOUNT CODE */}
-                          <td className="py-4 px-4 align-middle whitespace-nowrap">
+                          {/* 4. DISCOUNT CODE (GLASSY PILL) */}
+                          <td className="py-3.5 px-4 align-middle whitespace-nowrap">
                             <button
                               onClick={(e) => handleCopyCode(e, firm.id, firm.code, firm.name, firm.discount)}
-                              className="inline-flex items-center gap-1.5 text-sm font-black text-[#a6ff00] hover:text-white transition-colors cursor-pointer group/code select-none"
+                              className="inline-flex items-center gap-1.5 bg-black/40 hover:bg-black/70 backdrop-blur-md border border-white/10 hover:border-[#F0C41B]/50 px-2.5 py-1 rounded-lg text-xs font-extrabold text-[#F0C41B] shadow-[inset_0_1px_2px_rgba(255,255,255,0.08)] transition-all cursor-pointer group/code select-none"
                               title={`Click to copy code ${firm.code}`}
                             >
                               <span>{isCopied ? 'COPIED!' : firm.code}</span>
                               {isCopied ? (
-                                <Check size={13} className="text-[#a6ff00]" />
+                                <Check size={12} className="text-[#F0C41B] stroke-[3]" />
                               ) : (
-                                <Copy size={13} className="text-[#a6ff00] group-hover/code:text-white opacity-80" />
+                                <Copy size={11} className="text-[#F0C41B] opacity-80 group-hover/code:opacity-100 group-hover/code:scale-110 transition-all" />
                               )}
                             </button>
                           </td>
 
-                          {/* 5. CLAIM OFFER (BUY NOW BUTTON) */}
-                          <td className="py-4 px-4 align-middle text-right whitespace-nowrap">
+                          {/* 5. CLAIM OFFER (GLOSSY & GLASSY BUY NOW BUTTON) */}
+                          <td className="py-3.5 px-4 align-middle text-right whitespace-nowrap">
                             <a
                               href={firm.affiliateUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center justify-center gap-1 bg-[#bbf727] hover:bg-[#cbfb3d] text-black font-extrabold text-xs px-5 py-2 rounded-full shadow-[0_0_15px_rgba(187,247,39,0.3)] hover:shadow-[0_0_22px_rgba(187,247,39,0.5)] hover:scale-[1.03] active:scale-95 transition-all cursor-pointer"
+                              className="group/btn relative inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-2 rounded-full overflow-hidden backdrop-blur-md bg-gradient-to-b from-[#F0C41B] via-[#ffd644] to-[#d99f00] text-black font-extrabold text-xs shadow-[0_2px_10px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.4)] hover:shadow-[0_4px_18px_rgba(240,196,27,0.35),inset_0_1px_2px_rgba(255,255,255,0.6)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300 cursor-pointer select-none"
                             >
-                              <span>Buy Now</span>
-                              <span className="font-bold text-sm leading-none">&gt;</span>
+                              {/* Upper Specular Curved Glass Reflection */}
+                              <span className="absolute top-0 inset-x-0 h-[48%] bg-gradient-to-b from-white/35 via-white/10 to-transparent pointer-events-none rounded-t-full" />
+
+                              {/* Glass Shimmer Specular Light Sweep */}
+                              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+
+                              <span className="relative z-10 tracking-wide font-black">Buy Now</span>
+                              <span className="relative z-10 font-black text-sm leading-none group-hover/btn:translate-x-0.5 transition-transform">&gt;</span>
                             </a>
                           </td>
                         </tr>
