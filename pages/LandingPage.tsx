@@ -30,6 +30,10 @@ const LandingPage: React.FC = () => {
   const { mode, getModePath } = useTradeMode();
   const [topFirms, setTopFirms] = useState<PropFirm[]>([]);
   const [copiedFirm, setCopiedFirm] = useState<{name: string; logo: string; rating: number; code: string; discount: string; website: string; affiliate: string} | null>(null);
+  const [flippedCards, setFlippedCards] = useState<{ [key: string]: boolean }>({});
+  const toggleCardFlip = (cardId: string) => {
+    setFlippedCards(prev => ({ ...prev, [cardId]: !prev[cardId] }));
+  };
   const modeLabel = mode === 'futures' ? 'Futures' : mode === 'crypto' ? 'Crypto' : 'Prop';
 
   // Static logos for the infinite ticker
@@ -205,25 +209,68 @@ const LandingPage: React.FC = () => {
                   style={{ animationDelay: '0s' }}
                 >
                   <div 
-                    className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
-                    style={{
-                      transform: 'perspective(600px) rotateY(16deg) rotateX(4deg) rotateZ(-2deg)',
-                      transformStyle: 'preserve-3d'
-                    }}
+                    onClick={() => toggleCardFlip('card-1')}
+                    className="relative cursor-pointer select-none transition-transform duration-300 hover:scale-105"
+                    style={{ perspective: '800px' }}
+                    title="Click to flip"
                   >
-                    {/* Glowing Top Light Ray */}
-                    <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
-                    {/* Subtle Corner Sparkle */}
-                    <div className="absolute -top-1.5 -left-1.5 pointer-events-none opacity-50 animate-pulse">
-                      <Sparkles size={12} className="text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.6)]" />
-                    </div>
+                    <div 
+                      className="relative transition-transform duration-700 ease-out"
+                      style={{
+                        transformStyle: 'preserve-3d',
+                        transform: flippedCards['card-1']
+                          ? 'perspective(600px) rotateY(196deg) rotateX(4deg) rotateZ(-2deg)'
+                          : 'perspective(600px) rotateY(16deg) rotateX(4deg) rotateZ(-2deg)'
+                      }}
+                    >
+                      {/* FRONT FACE */}
+                      <div 
+                        className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left whitespace-nowrap min-w-[178px] sm:min-w-[195px]"
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          WebkitBackfaceVisibility: 'hidden'
+                        }}
+                      >
+                        {/* Glowing Top Light Ray */}
+                        <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
+                        {/* Subtle Corner Sparkle */}
+                        <div className="absolute -top-1.5 -left-1.5 pointer-events-none opacity-50 animate-pulse">
+                          <Sparkles size={12} className="text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.6)]" />
+                        </div>
 
-                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
-                      <Tag size={19} className="stroke-[2.2] fill-[#F0C41B]/20" />
-                    </div>
-                    <div>
-                      <div className="text-[10px] sm:text-[11px] font-medium text-neutral-400 leading-tight">Up to</div>
-                      <div className="text-sm sm:text-base font-black text-white leading-tight">90% OFF</div>
+                        <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
+                          <Tag size={19} className="stroke-[2.2] fill-[#F0C41B]/20" />
+                        </div>
+                        <div>
+                          <div className="text-[10px] sm:text-[11px] font-medium text-neutral-400 leading-tight">Up to</div>
+                          <div className="text-sm sm:text-base font-black text-white leading-tight">90% OFF</div>
+                        </div>
+                      </div>
+
+                      {/* BACK FACE - W LOGO */}
+                      <div 
+                        className="absolute inset-0 bg-[#0c0d13]/95 border border-[#F0C41B]/50 hover:border-[#F0C41B]/80 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_25px_rgba(240,196,27,0.25),inset_0_1px_2px_rgba(255,225,120,0.35)] flex items-center gap-3 text-left whitespace-nowrap overflow-hidden"
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          WebkitBackfaceVisibility: 'hidden',
+                          transform: 'rotateY(180deg)'
+                        }}
+                      >
+                        {/* Glowing Top Light Ray */}
+                        <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B] to-transparent pointer-events-none" />
+                        {/* Subtle Corner Sparkle */}
+                        <div className="absolute -top-1.5 -right-1.5 pointer-events-none opacity-60 animate-pulse">
+                          <Sparkles size={12} className="text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.7)]" />
+                        </div>
+
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-b from-[#F0C41B]/25 to-[#F0C41B]/10 border border-[#F0C41B]/40 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(240,196,27,0.3)] p-0.5">
+                          <img src="/w-emblem.png" alt="W Logo" className="w-7 h-7 object-contain drop-shadow-[0_0_8px_rgba(240,196,27,0.6)]" />
+                        </div>
+                        <div>
+                          <div className="text-[10px] sm:text-[11px] font-bold text-[#F0C41B] tracking-wider uppercase leading-tight">PROPxWEALTH</div>
+                          <div className="text-sm sm:text-base font-black text-white leading-tight">Max 90% Deals</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -234,25 +281,68 @@ const LandingPage: React.FC = () => {
                   style={{ animationDelay: '1.4s' }}
                 >
                   <div 
-                    className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
-                    style={{
-                      transform: 'perspective(600px) rotateY(16deg) rotateX(-5deg) rotateZ(1deg)',
-                      transformStyle: 'preserve-3d'
-                    }}
+                    onClick={() => toggleCardFlip('card-2')}
+                    className="relative cursor-pointer select-none transition-transform duration-300 hover:scale-105"
+                    style={{ perspective: '800px' }}
+                    title="Click to flip"
                   >
-                    {/* Glowing Top Light Ray */}
-                    <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
-                    {/* Subtle Corner Sparkle */}
-                    <div className="absolute -bottom-1 -left-1.5 pointer-events-none opacity-45 animate-pulse" style={{ animationDelay: '0.8s' }}>
-                      <Sparkles size={11} className="text-[#F0C41B] drop-shadow-[0_0_5px_rgba(240,196,27,0.5)]" />
-                    </div>
+                    <div 
+                      className="relative transition-transform duration-700 ease-out"
+                      style={{
+                        transformStyle: 'preserve-3d',
+                        transform: flippedCards['card-2']
+                          ? 'perspective(600px) rotateY(196deg) rotateX(-5deg) rotateZ(1deg)'
+                          : 'perspective(600px) rotateY(16deg) rotateX(-5deg) rotateZ(1deg)'
+                      }}
+                    >
+                      {/* FRONT FACE */}
+                      <div 
+                        className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left whitespace-nowrap min-w-[178px] sm:min-w-[195px]"
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          WebkitBackfaceVisibility: 'hidden'
+                        }}
+                      >
+                        {/* Glowing Top Light Ray */}
+                        <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
+                        {/* Subtle Corner Sparkle */}
+                        <div className="absolute -bottom-1 -left-1.5 pointer-events-none opacity-45 animate-pulse" style={{ animationDelay: '0.8s' }}>
+                          <Sparkles size={11} className="text-[#F0C41B] drop-shadow-[0_0_5px_rgba(240,196,27,0.5)]" />
+                        </div>
 
-                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
-                      <BarChart3 size={19} className="stroke-[2.2]" />
-                    </div>
-                    <div>
-                      <div className="text-[10px] sm:text-[11px] font-medium text-neutral-400 leading-tight">Compare</div>
-                      <div className="text-sm sm:text-base font-black text-white leading-tight">50+ Firms</div>
+                        <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
+                          <BarChart3 size={19} className="stroke-[2.2]" />
+                        </div>
+                        <div>
+                          <div className="text-[10px] sm:text-[11px] font-medium text-neutral-400 leading-tight">Compare</div>
+                          <div className="text-sm sm:text-base font-black text-white leading-tight">50+ Firms</div>
+                        </div>
+                      </div>
+
+                      {/* BACK FACE - W LOGO */}
+                      <div 
+                        className="absolute inset-0 bg-[#0c0d13]/95 border border-[#F0C41B]/50 hover:border-[#F0C41B]/80 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_25px_rgba(240,196,27,0.25),inset_0_1px_2px_rgba(255,225,120,0.35)] flex items-center gap-3 text-left whitespace-nowrap overflow-hidden"
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          WebkitBackfaceVisibility: 'hidden',
+                          transform: 'rotateY(180deg)'
+                        }}
+                      >
+                        {/* Glowing Top Light Ray */}
+                        <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B] to-transparent pointer-events-none" />
+                        {/* Subtle Corner Sparkle */}
+                        <div className="absolute -top-1.5 -right-1.5 pointer-events-none opacity-60 animate-pulse">
+                          <Sparkles size={12} className="text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.7)]" />
+                        </div>
+
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-b from-[#F0C41B]/25 to-[#F0C41B]/10 border border-[#F0C41B]/40 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(240,196,27,0.3)] p-0.5">
+                          <img src="/w-emblem.png" alt="W Logo" className="w-7 h-7 object-contain drop-shadow-[0_0_8px_rgba(240,196,27,0.6)]" />
+                        </div>
+                        <div>
+                          <div className="text-[10px] sm:text-[11px] font-bold text-[#F0C41B] tracking-wider uppercase leading-tight">PROPxWEALTH</div>
+                          <div className="text-sm sm:text-base font-black text-white leading-tight">Top 50+ Ranked</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -263,25 +353,68 @@ const LandingPage: React.FC = () => {
                   style={{ animationDelay: '0.7s' }}
                 >
                   <div 
-                    className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
-                    style={{
-                      transform: 'perspective(600px) rotateY(-16deg) rotateX(4deg) rotateZ(2deg)',
-                      transformStyle: 'preserve-3d'
-                    }}
+                    onClick={() => toggleCardFlip('card-3')}
+                    className="relative cursor-pointer select-none transition-transform duration-300 hover:scale-105"
+                    style={{ perspective: '800px' }}
+                    title="Click to flip"
                   >
-                    {/* Glowing Top Light Ray */}
-                    <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
-                    {/* Subtle Corner Sparkle */}
-                    <div className="absolute -top-1.5 -right-1.5 pointer-events-none opacity-50 animate-pulse" style={{ animationDelay: '0.4s' }}>
-                      <Sparkles size={12} className="text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.6)]" />
-                    </div>
+                    <div 
+                      className="relative transition-transform duration-700 ease-out"
+                      style={{
+                        transformStyle: 'preserve-3d',
+                        transform: flippedCards['card-3']
+                          ? 'perspective(600px) rotateY(164deg) rotateX(4deg) rotateZ(2deg)'
+                          : 'perspective(600px) rotateY(-16deg) rotateX(4deg) rotateZ(2deg)'
+                      }}
+                    >
+                      {/* FRONT FACE */}
+                      <div 
+                        className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left whitespace-nowrap min-w-[178px] sm:min-w-[195px]"
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          WebkitBackfaceVisibility: 'hidden'
+                        }}
+                      >
+                        {/* Glowing Top Light Ray */}
+                        <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
+                        {/* Subtle Corner Sparkle */}
+                        <div className="absolute -top-1.5 -right-1.5 pointer-events-none opacity-50 animate-pulse" style={{ animationDelay: '0.4s' }}>
+                          <Sparkles size={12} className="text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.6)]" />
+                        </div>
 
-                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
-                      <Gift size={19} className="stroke-[2.2]" />
-                    </div>
-                    <div>
-                      <div className="text-sm sm:text-base font-black text-white leading-tight">Earn Rewards</div>
-                      <div className="text-[10px] sm:text-[11px] font-medium text-neutral-400 leading-tight">On Every Purchase</div>
+                        <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
+                          <Gift size={19} className="stroke-[2.2]" />
+                        </div>
+                        <div>
+                          <div className="text-sm sm:text-base font-black text-white leading-tight">Earn Rewards</div>
+                          <div className="text-[10px] sm:text-[11px] font-medium text-neutral-400 leading-tight">On Every Purchase</div>
+                        </div>
+                      </div>
+
+                      {/* BACK FACE - W LOGO */}
+                      <div 
+                        className="absolute inset-0 bg-[#0c0d13]/95 border border-[#F0C41B]/50 hover:border-[#F0C41B]/80 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_25px_rgba(240,196,27,0.25),inset_0_1px_2px_rgba(255,225,120,0.35)] flex items-center gap-3 text-left whitespace-nowrap overflow-hidden"
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          WebkitBackfaceVisibility: 'hidden',
+                          transform: 'rotateY(180deg)'
+                        }}
+                      >
+                        {/* Glowing Top Light Ray */}
+                        <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B] to-transparent pointer-events-none" />
+                        {/* Subtle Corner Sparkle */}
+                        <div className="absolute -top-1.5 -left-1.5 pointer-events-none opacity-60 animate-pulse">
+                          <Sparkles size={12} className="text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.7)]" />
+                        </div>
+
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-b from-[#F0C41B]/25 to-[#F0C41B]/10 border border-[#F0C41B]/40 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(240,196,27,0.3)] p-0.5">
+                          <img src="/w-emblem.png" alt="W Logo" className="w-7 h-7 object-contain drop-shadow-[0_0_8px_rgba(240,196,27,0.6)]" />
+                        </div>
+                        <div>
+                          <div className="text-[10px] sm:text-[11px] font-bold text-[#F0C41B] tracking-wider uppercase leading-tight">PROPxWEALTH</div>
+                          <div className="text-sm sm:text-base font-black text-white leading-tight">Wealth Rewards</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -292,25 +425,68 @@ const LandingPage: React.FC = () => {
                   style={{ animationDelay: '2.1s' }}
                 >
                   <div 
-                    className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
-                    style={{
-                      transform: 'perspective(600px) rotateY(-16deg) rotateX(-5deg) rotateZ(-1deg)',
-                      transformStyle: 'preserve-3d'
-                    }}
+                    onClick={() => toggleCardFlip('card-4')}
+                    className="relative cursor-pointer select-none transition-transform duration-300 hover:scale-105"
+                    style={{ perspective: '800px' }}
+                    title="Click to flip"
                   >
-                    {/* Glowing Top Light Ray */}
-                    <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
-                    {/* Subtle Corner Sparkle */}
-                    <div className="absolute -bottom-1 -right-1.5 pointer-events-none opacity-45 animate-pulse" style={{ animationDelay: '1.2s' }}>
-                      <Sparkles size={11} className="text-[#F0C41B] drop-shadow-[0_0_5px_rgba(240,196,27,0.5)]" />
-                    </div>
+                    <div 
+                      className="relative transition-transform duration-700 ease-out"
+                      style={{
+                        transformStyle: 'preserve-3d',
+                        transform: flippedCards['card-4']
+                          ? 'perspective(600px) rotateY(164deg) rotateX(-5deg) rotateZ(-1deg)'
+                          : 'perspective(600px) rotateY(-16deg) rotateX(-5deg) rotateZ(-1deg)'
+                      }}
+                    >
+                      {/* FRONT FACE */}
+                      <div 
+                        className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left whitespace-nowrap min-w-[178px] sm:min-w-[195px]"
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          WebkitBackfaceVisibility: 'hidden'
+                        }}
+                      >
+                        {/* Glowing Top Light Ray */}
+                        <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
+                        {/* Subtle Corner Sparkle */}
+                        <div className="absolute -bottom-1 -right-1.5 pointer-events-none opacity-45 animate-pulse" style={{ animationDelay: '1.2s' }}>
+                          <Sparkles size={11} className="text-[#F0C41B] drop-shadow-[0_0_5px_rgba(240,196,27,0.5)]" />
+                        </div>
 
-                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
-                      <Zap size={19} className="stroke-[2.2] fill-[#F0C41B]/20" />
-                    </div>
-                    <div>
-                      <div className="text-sm sm:text-base font-black text-white leading-tight">Exclusive Perks</div>
-                      <div className="text-[10px] sm:text-[11px] font-medium text-neutral-400 leading-tight">Only at Prop X Wealth</div>
+                        <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
+                          <Zap size={19} className="stroke-[2.2] fill-[#F0C41B]/20" />
+                        </div>
+                        <div>
+                          <div className="text-sm sm:text-base font-black text-white leading-tight">Exclusive Perks</div>
+                          <div className="text-[10px] sm:text-[11px] font-medium text-neutral-400 leading-tight">Only at Prop X Wealth</div>
+                        </div>
+                      </div>
+
+                      {/* BACK FACE - W LOGO */}
+                      <div 
+                        className="absolute inset-0 bg-[#0c0d13]/95 border border-[#F0C41B]/50 hover:border-[#F0C41B]/80 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_25px_rgba(240,196,27,0.25),inset_0_1px_2px_rgba(255,225,120,0.35)] flex items-center gap-3 text-left whitespace-nowrap overflow-hidden"
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          WebkitBackfaceVisibility: 'hidden',
+                          transform: 'rotateY(180deg)'
+                        }}
+                      >
+                        {/* Glowing Top Light Ray */}
+                        <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B] to-transparent pointer-events-none" />
+                        {/* Subtle Corner Sparkle */}
+                        <div className="absolute -top-1.5 -left-1.5 pointer-events-none opacity-60 animate-pulse">
+                          <Sparkles size={12} className="text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.7)]" />
+                        </div>
+
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-b from-[#F0C41B]/25 to-[#F0C41B]/10 border border-[#F0C41B]/40 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(240,196,27,0.3)] p-0.5">
+                          <img src="/w-emblem.png" alt="W Logo" className="w-7 h-7 object-contain drop-shadow-[0_0_8px_rgba(240,196,27,0.6)]" />
+                        </div>
+                        <div>
+                          <div className="text-[10px] sm:text-[11px] font-bold text-[#F0C41B] tracking-wider uppercase leading-tight">PROPxWEALTH</div>
+                          <div className="text-sm sm:text-base font-black text-white leading-tight">VIP Elite Perks</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -321,32 +497,143 @@ const LandingPage: React.FC = () => {
 
           {/* Mobile Cards (Compact 2x2 grid below visual on phones) */}
             <div className="grid grid-cols-2 gap-2 w-full max-w-xs mt-3 md:hidden z-20">
-              <div className="bg-[#0c0d12]/90 border border-white/10 rounded-xl p-2 flex items-center gap-2 text-left">
-                <Tag size={15} className="text-[#F0C41B] shrink-0" />
-                <div>
-                  <div className="text-[9px] text-neutral-400 leading-none">Up to</div>
-                  <div className="text-xs font-bold text-white mt-0.5">90% OFF</div>
+              <div 
+                onClick={() => toggleCardFlip('m-1')}
+                className="relative cursor-pointer select-none" 
+                style={{ perspective: '600px' }}
+              >
+                <div 
+                  className="relative transition-transform duration-500 ease-out"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transform: flippedCards['m-1'] ? 'rotateY(180deg)' : 'rotateY(0deg)'
+                  }}
+                >
+                  <div 
+                    className="bg-[#0c0d12]/90 border border-white/10 rounded-xl p-2 flex items-center gap-2 text-left"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                  >
+                    <Tag size={15} className="text-[#F0C41B] shrink-0" />
+                    <div>
+                      <div className="text-[9px] text-neutral-400 leading-none">Up to</div>
+                      <div className="text-xs font-bold text-white mt-0.5">90% OFF</div>
+                    </div>
+                  </div>
+                  <div 
+                    className="absolute inset-0 bg-[#0c0d12]/95 border border-[#F0C41B]/40 rounded-xl p-2 flex items-center gap-2 text-left"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                  >
+                    <img src="/w-emblem.png" alt="W" className="w-4 h-4 object-contain shrink-0" />
+                    <div>
+                      <div className="text-[8px] font-bold text-[#F0C41B] leading-none">PROPxWEALTH</div>
+                      <div className="text-[10px] font-bold text-white mt-0.5 leading-none">90% Deals</div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="bg-[#0c0d12]/90 border border-white/10 rounded-xl p-2 flex items-center gap-2 text-left">
-                <Gift size={15} className="text-[#F0C41B] shrink-0" />
-                <div>
-                  <div className="text-xs font-bold text-white leading-none">Earn Rewards</div>
-                  <div className="text-[9px] text-neutral-400 mt-0.5">On Purchases</div>
+
+              <div 
+                onClick={() => toggleCardFlip('m-2')}
+                className="relative cursor-pointer select-none" 
+                style={{ perspective: '600px' }}
+              >
+                <div 
+                  className="relative transition-transform duration-500 ease-out"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transform: flippedCards['m-2'] ? 'rotateY(180deg)' : 'rotateY(0deg)'
+                  }}
+                >
+                  <div 
+                    className="bg-[#0c0d12]/90 border border-white/10 rounded-xl p-2 flex items-center gap-2 text-left"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                  >
+                    <Gift size={15} className="text-[#F0C41B] shrink-0" />
+                    <div>
+                      <div className="text-xs font-bold text-white leading-none">Earn Rewards</div>
+                      <div className="text-[9px] text-neutral-400 mt-0.5">On Purchases</div>
+                    </div>
+                  </div>
+                  <div 
+                    className="absolute inset-0 bg-[#0c0d12]/95 border border-[#F0C41B]/40 rounded-xl p-2 flex items-center gap-2 text-left"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                  >
+                    <img src="/w-emblem.png" alt="W" className="w-4 h-4 object-contain shrink-0" />
+                    <div>
+                      <div className="text-[8px] font-bold text-[#F0C41B] leading-none">PROPxWEALTH</div>
+                      <div className="text-[10px] font-bold text-white mt-0.5 leading-none">Rewards</div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="bg-[#0c0d12]/90 border border-white/10 rounded-xl p-2 flex items-center gap-2 text-left">
-                <BarChart3 size={15} className="text-[#F0C41B] shrink-0" />
-                <div>
-                  <div className="text-[9px] text-neutral-400 leading-none">Compare</div>
-                  <div className="text-xs font-bold text-white mt-0.5">50+ Firms</div>
+
+              <div 
+                onClick={() => toggleCardFlip('m-3')}
+                className="relative cursor-pointer select-none" 
+                style={{ perspective: '600px' }}
+              >
+                <div 
+                  className="relative transition-transform duration-500 ease-out"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transform: flippedCards['m-3'] ? 'rotateY(180deg)' : 'rotateY(0deg)'
+                  }}
+                >
+                  <div 
+                    className="bg-[#0c0d12]/90 border border-white/10 rounded-xl p-2 flex items-center gap-2 text-left"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                  >
+                    <BarChart3 size={15} className="text-[#F0C41B] shrink-0" />
+                    <div>
+                      <div className="text-[9px] text-neutral-400 leading-none">Compare</div>
+                      <div className="text-xs font-bold text-white mt-0.5">50+ Firms</div>
+                    </div>
+                  </div>
+                  <div 
+                    className="absolute inset-0 bg-[#0c0d12]/95 border border-[#F0C41B]/40 rounded-xl p-2 flex items-center gap-2 text-left"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                  >
+                    <img src="/w-emblem.png" alt="W" className="w-4 h-4 object-contain shrink-0" />
+                    <div>
+                      <div className="text-[8px] font-bold text-[#F0C41B] leading-none">PROPxWEALTH</div>
+                      <div className="text-[10px] font-bold text-white mt-0.5 leading-none">Top Firms</div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="bg-[#0c0d12]/90 border border-white/10 rounded-xl p-2 flex items-center gap-2 text-left">
-                <Zap size={15} className="text-[#F0C41B] shrink-0" />
-                <div>
-                  <div className="text-xs font-bold text-white leading-none">Exclusive Perks</div>
-                  <div className="text-[9px] text-neutral-400 mt-0.5">Prop X Wealth</div>
+
+              <div 
+                onClick={() => toggleCardFlip('m-4')}
+                className="relative cursor-pointer select-none" 
+                style={{ perspective: '600px' }}
+              >
+                <div 
+                  className="relative transition-transform duration-500 ease-out"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transform: flippedCards['m-4'] ? 'rotateY(180deg)' : 'rotateY(0deg)'
+                  }}
+                >
+                  <div 
+                    className="bg-[#0c0d12]/90 border border-white/10 rounded-xl p-2 flex items-center gap-2 text-left"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                  >
+                    <Zap size={15} className="text-[#F0C41B] shrink-0" />
+                    <div>
+                      <div className="text-xs font-bold text-white leading-none">Exclusive Perks</div>
+                      <div className="text-[9px] text-neutral-400 mt-0.5">Prop X Wealth</div>
+                    </div>
+                  </div>
+                  <div 
+                    className="absolute inset-0 bg-[#0c0d12]/95 border border-[#F0C41B]/40 rounded-xl p-2 flex items-center gap-2 text-left"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                  >
+                    <img src="/w-emblem.png" alt="W" className="w-4 h-4 object-contain shrink-0" />
+                    <div>
+                      <div className="text-[8px] font-bold text-[#F0C41B] leading-none">PROPxWEALTH</div>
+                      <div className="text-[10px] font-bold text-white mt-0.5 leading-none">VIP Perks</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
