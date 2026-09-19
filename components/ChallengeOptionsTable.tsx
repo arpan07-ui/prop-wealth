@@ -567,8 +567,8 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
     <div className={`w-full ${className}`}>
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#0d0f14] border border-[#a6ff00]/50 text-white px-5 py-3 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.9),0_0_25px_rgba(166,255,0,0.3)] flex items-center gap-3 animate-fade-in backdrop-blur-xl">
-          <CheckCircle2 size={18} className="text-[#a6ff00] shrink-0" />
+        <div className="fixed bottom-6 right-6 z-50 bg-[#0d0f14] border border-[#F0C41B]/50 text-white px-5 py-3 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.9),0_0_25px_rgba(240,196,27,0.35)] flex items-center gap-3 animate-fade-in backdrop-blur-xl">
+          <CheckCircle2 size={18} className="text-[#F0C41B] shrink-0" />
           <span className="text-sm font-bold">{toastMessage}</span>
         </div>
       )}
@@ -796,23 +796,23 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
           {/* Header Row: Title & Subtitle + Toolbar (Firm Dropdown & Reset) */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
                 Available Challenge Options
               </h2>
-              <p className="text-xs sm:text-sm text-neutral-400 mt-1 font-medium">
+              <p className="text-xs sm:text-sm text-neutral-400 mt-1.5 font-medium">
                 Use the firm toggle to view one firm, or keep all firms selected.
               </p>
             </div>
 
             {/* Toolbar: Info Pill + Firm Selector + Animated Reset Button */}
             <div className="flex flex-wrap items-center gap-2.5 self-start lg:self-center">
-              <div className="hidden sm:inline-flex items-center gap-1.5 text-xs text-neutral-400 bg-[#0d0e12] border border-white/5 rounded-xl px-3 py-2 font-medium">
-                <Info size={13} className="text-[#00e575]" />
+              <div className="hidden sm:inline-flex items-center gap-1.5 text-xs text-neutral-300 bg-[#0e1017] border border-white/10 rounded-xl px-3.5 py-2.5 font-semibold">
+                <Info size={14} className="text-[#F0C41B]" />
                 <span>Click firm name for details</span>
               </div>
 
               {/* Firm Selector Dropdown */}
-              <div className="flex items-center gap-2 bg-[#0d0e12] hover:bg-[#12141a] border border-white/10 hover:border-white/20 rounded-xl px-3 py-2 transition-all">
+              <div className="flex items-center gap-2 bg-[#0e1017] hover:bg-[#141722] border border-white/10 hover:border-[#F0C41B]/40 rounded-xl px-3.5 py-2 transition-all shadow-sm">
                 <span className="text-xs font-bold text-neutral-400">Firm</span>
                 <div className="relative">
                   <select
@@ -839,80 +839,78 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                   setSortField(null);
                   setSortOrder('asc');
                 }}
-                className="group flex items-center gap-2 bg-[#0d0e12] hover:bg-white/[0.06] border border-white/10 hover:border-white/20 active:scale-95 text-xs font-black text-neutral-300 hover:text-white rounded-xl px-3.5 py-2 transition-all duration-200 cursor-pointer select-none shadow-sm"
+                className="group flex items-center gap-2 bg-[#0e1017] hover:bg-white/[0.08] border border-white/10 hover:border-[#F0C41B]/40 active:scale-95 text-xs font-black text-neutral-200 hover:text-[#F0C41B] rounded-xl px-4 py-2.5 transition-all duration-200 cursor-pointer select-none shadow-sm"
                 title="Reset all filters"
               >
-                <RotateCcw size={13} className="text-neutral-400 group-hover:text-[#00e575] transition-transform duration-500 ease-out group-hover:-rotate-180" />
+                <RotateCcw size={14} className="text-neutral-400 group-hover:text-[#F0C41B] transition-transform duration-500 ease-out group-hover:-rotate-180" />
                 <span className="tracking-wide">RESET</span>
               </button>
             </div>
           </div>
 
-          {/* Filter Pills Toolbar: Step Types & Account Sizes Aligned */}
-          <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3 p-2 bg-[#0a0b0e] border border-white/10 rounded-2xl shadow-lg">
-            {/* Step Types Filter */}
-            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
-              <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider px-2 shrink-0 hidden sm:inline">Type:</span>
+          {/* Filter Pills Toolbar: BIG, BOLD, NO "TYPE:" OR "SIZE:" WORDS, YELLOW GOLD METALLIC GRADIENT */}
+          <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3.5 p-2.5 sm:p-3 bg-[#0a0b0f] border border-white/10 rounded-2xl sm:rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.85)]">
+            {/* Step Types Filter Buttons (BIG & BOLD, NO "TYPE:" LABEL) */}
+            <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto scrollbar-none py-1">
               {['All Types', 'One Step', 'Two Step', 'Instant Funded'].map((type) => {
                 const isActive = selectedType === type;
                 return (
                   <button
                     key={type}
                     onClick={() => setSelectedType(type)}
-                    className={`group relative px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer select-none hover:scale-[1.03] active:scale-95 ${
+                    className={`group relative px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-black whitespace-nowrap transition-all duration-300 cursor-pointer select-none hover:scale-[1.03] active:scale-95 ${
                       isActive
-                        ? 'bg-[#00e575]/15 text-[#00e575] border border-[#00e575]/60 shadow-[0_0_15px_rgba(0,229,117,0.25)]'
-                        : 'text-neutral-400 hover:text-white hover:bg-white/[0.04] border border-transparent'
+                        ? 'bg-gradient-to-b from-[#F0C41B]/25 via-[#F0C41B]/12 to-[#F0C41B]/5 text-[#F0C41B] border-2 border-[#F0C41B] shadow-[0_0_22px_rgba(240,196,27,0.4),inset_0_1px_2px_rgba(255,235,140,0.5)] drop-shadow-[0_0_8px_rgba(240,196,27,0.35)]'
+                        : 'bg-white/[0.03] hover:bg-white/[0.08] text-neutral-300 hover:text-white border border-white/5 hover:border-white/20'
                     }`}
                   >
                     {isActive && (
-                      <span className="absolute -top-[1px] inset-x-3 h-[2px] bg-gradient-to-r from-transparent via-[#00e575] to-transparent rounded-full shadow-[0_0_8px_#00e575]" />
+                      <span className="absolute -top-[2px] inset-x-3 h-[2px] bg-gradient-to-r from-transparent via-[#ffe875] to-transparent rounded-full shadow-[0_0_8px_#F0C41B]" />
                     )}
-                    <span className="relative z-10">{type}</span>
+                    <span className="relative z-10 tracking-wide">{type}</span>
                   </button>
                 );
               })}
             </div>
 
-            <div className="hidden xl:block w-[1px] h-6 bg-white/10 shrink-0" />
+            <div className="hidden xl:block w-[1.5px] h-9 bg-gradient-to-b from-transparent via-white/20 to-transparent shrink-0" />
 
-            {/* Account Sizes Filter */}
-            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
-              <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider px-2 shrink-0 hidden sm:inline">Size:</span>
+            {/* Account Sizes Filter Buttons (BIG & BOLD, NO "SIZE:" LABEL) */}
+            <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto scrollbar-none py-1">
               {['All Sizes', '5K', '10K', '25K', '50K', '100K', '200K'].map((size) => {
                 const isActive = selectedSize === size;
                 return (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`group relative px-3 sm:px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer select-none hover:scale-[1.03] active:scale-95 ${
+                    className={`group relative px-3.5 sm:px-5 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-black whitespace-nowrap transition-all duration-300 cursor-pointer select-none hover:scale-[1.03] active:scale-95 ${
                       isActive
-                        ? 'bg-[#00e575]/15 text-[#00e575] border border-[#00e575]/60 shadow-[0_0_15px_rgba(0,229,117,0.25)]'
-                        : 'text-neutral-400 hover:text-white hover:bg-white/[0.04] border border-transparent'
+                        ? 'bg-gradient-to-b from-[#F0C41B]/25 via-[#F0C41B]/12 to-[#F0C41B]/5 text-[#F0C41B] border-2 border-[#F0C41B] shadow-[0_0_22px_rgba(240,196,27,0.4),inset_0_1px_2px_rgba(255,235,140,0.5)] drop-shadow-[0_0_8px_rgba(240,196,27,0.35)]'
+                        : 'bg-white/[0.03] hover:bg-white/[0.08] text-neutral-300 hover:text-white border border-white/5 hover:border-white/20'
                     }`}
                   >
                     {isActive && (
-                      <span className="absolute -top-[1px] inset-x-2 h-[2px] bg-gradient-to-r from-transparent via-[#00e575] to-transparent rounded-full shadow-[0_0_8px_#00e575]" />
+                      <span className="absolute -top-[2px] inset-x-2 h-[2px] bg-gradient-to-r from-transparent via-[#ffe875] to-transparent rounded-full shadow-[0_0_8px_#F0C41B]" />
                     )}
-                    <span className="relative z-10">{size}</span>
+                    <span className="relative z-10 tracking-wide">{size}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Table Container */}
-          <div className="w-full overflow-hidden rounded-2xl bg-[#090a0d] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
+          {/* Table Container: Spacious & Luxurious */}
+          <div className="w-full overflow-hidden rounded-2xl sm:rounded-3xl bg-[#090a0e] border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.9)]">
             <div className="overflow-x-auto scrollbar-thin">
-              <table className="w-full text-left border-collapse min-w-[960px]">
+              <table className="w-full text-left border-collapse min-w-[980px]">
                 {/* Table Header */}
                 <thead>
-                  <tr className="border-b border-white/10 bg-[#0c0d12] text-[11px] font-extrabold text-neutral-400 uppercase tracking-wider">
-                    <th className="py-4 px-5 text-left font-bold min-w-[200px]">FIRM</th>
-                    <th className="py-4 px-4 text-left font-bold min-w-[130px]">ACCOUNT SIZE</th>
-                    <th className="py-4 px-4 text-left font-bold min-w-[110px]">PROFIT TARGET</th>
-                    <th className="py-4 px-4 text-left font-bold min-w-[120px]">DRAWDOWN</th>
-                    <th className="py-4 px-4 text-left font-bold min-w-[100px]">DAILY LOSS</th>
+                  <tr className="border-b border-white/10 bg-[#0c0d14] text-[11px] sm:text-xs font-black text-neutral-400 uppercase tracking-wider">
+                    <th className="py-4 sm:py-5 px-5 text-left font-bold min-w-[210px]">FIRM</th>
+                    <th className="py-4 sm:py-5 px-4 text-left font-bold min-w-[140px]">ACCOUNT SIZE</th>
+                    <th className="py-4 sm:py-5 px-4 text-left font-bold min-w-[115px]">PROFIT TARGET</th>
+                    <th className="py-4 sm:py-5 px-4 text-left font-bold min-w-[125px]">DRAWDOWN</th>
+                    <th className="py-4 sm:py-5 px-4 text-left font-bold min-w-[105px]">DAILY LOSS</th>
                     <th 
                       onClick={() => {
                         if (sortField === 'challengeFee') {
@@ -923,14 +921,14 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                           setSortOrder('asc');
                         }
                       }}
-                      className="py-4 px-4 text-left font-bold min-w-[120px] cursor-pointer hover:text-white transition-colors select-none group/sort"
+                      className="py-4 sm:py-5 px-4 text-left font-bold min-w-[125px] cursor-pointer hover:text-[#F0C41B] transition-colors select-none group/sort"
                     >
                       <div className="flex items-center gap-1.5">
                         <span>CHALLENGE FEE</span>
                         {sortField === 'challengeFee' ? (
-                          sortOrder === 'asc' ? <ArrowUp size={13} className="text-[#00e575]" /> : <ArrowDown size={13} className="text-[#00e575]" />
+                          sortOrder === 'asc' ? <ArrowUp size={13} className="text-[#F0C41B]" /> : <ArrowDown size={13} className="text-[#F0C41B]" />
                         ) : (
-                          <ArrowUpDown size={13} className="text-neutral-500 group-hover/sort:text-white transition-colors" />
+                          <ArrowUpDown size={13} className="text-neutral-500 group-hover/sort:text-[#F0C41B] transition-colors" />
                         )}
                       </div>
                     </th>
@@ -944,19 +942,19 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                           setSortOrder('asc');
                         }
                       }}
-                      className="py-4 px-4 text-left font-bold min-w-[110px] cursor-pointer hover:text-white transition-colors select-none group/sort"
+                      className="py-4 sm:py-5 px-4 text-left font-bold min-w-[115px] cursor-pointer hover:text-[#F0C41B] transition-colors select-none group/sort"
                     >
                       <div className="flex items-center gap-1.5">
                         <span>TRUE COST</span>
                         {sortField === 'trueCost' ? (
-                          sortOrder === 'asc' ? <ArrowUp size={13} className="text-[#00e575]" /> : <ArrowDown size={13} className="text-[#00e575]" />
+                          sortOrder === 'asc' ? <ArrowUp size={13} className="text-[#F0C41B]" /> : <ArrowDown size={13} className="text-[#F0C41B]" />
                         ) : (
-                          <ArrowUpDown size={13} className="text-neutral-500 group-hover/sort:text-white transition-colors" />
+                          <ArrowUpDown size={13} className="text-neutral-500 group-hover/sort:text-[#F0C41B] transition-colors" />
                         )}
                       </div>
                     </th>
-                    <th className="py-4 px-4 text-left font-bold min-w-[130px]">POINTS</th>
-                    <th className="py-4 px-5 text-center font-bold min-w-[150px]">DISCOUNT</th>
+                    <th className="py-4 sm:py-5 px-4 text-left font-bold min-w-[135px]">POINTS</th>
+                    <th className="py-4 sm:py-5 px-5 text-center font-bold min-w-[160px]">DISCOUNT</th>
                   </tr>
                 </thead>
 
@@ -964,7 +962,7 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                 <tbody className="divide-y divide-white/[0.06]">
                   {filteredChallenges.length === 0 ? (
                     <tr>
-                      <td colSpan={9} className="py-14 text-center text-neutral-400 text-sm">
+                      <td colSpan={9} className="py-16 text-center text-neutral-400 text-sm">
                         No challenge options found matching the selected filters.
                       </td>
                     </tr>
@@ -976,15 +974,15 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                           key={item.id}
                           className="hover:bg-white/[0.03] transition-colors group"
                         >
-                          {/* 1. FIRM */}
-                          <td className="py-4 px-5 align-middle">
-                            <div className="flex items-center gap-3">
+                          {/* 1. FIRM (Logo + Name + Cyan/Blue Gradient Badge) */}
+                          <td className="py-5 px-5 align-middle">
+                            <div className="flex items-center gap-3.5">
                               <FirmIcon name={item.firmName} url={item.firmLogo} />
                               <div>
-                                <div className="text-sm font-bold text-white group-hover:text-[#00e575] transition-colors">
+                                <div className="text-sm sm:text-base font-extrabold text-white group-hover:text-[#F0C41B] transition-colors">
                                   {item.firmName}
                                 </div>
-                                <div className="inline-block mt-0.5 border border-[#00e575]/40 bg-[#00e575]/10 text-[#00e575] text-[9px] font-bold px-2 py-0.5 rounded tracking-wide uppercase">
+                                <div className="inline-block mt-0.5 bg-gradient-to-r from-cyan-500/15 via-blue-500/15 to-indigo-500/15 border border-cyan-400/40 text-cyan-300 text-[10px] font-black px-2.5 py-0.5 rounded-full tracking-wider uppercase shadow-[0_0_10px_rgba(6,182,212,0.15)]">
                                   {item.badge}
                                 </div>
                               </div>
@@ -992,101 +990,101 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                           </td>
 
                           {/* 2. ACCOUNT SIZE */}
-                          <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-base font-black text-white tracking-tight">
+                          <td className="py-5 px-4 align-middle whitespace-nowrap">
+                            <div className="text-base sm:text-lg font-black text-white tracking-tight">
                               {formatCurrency(item.accountSize)}
                             </div>
-                            <div className="inline-block mt-0.5 bg-white/5 border border-white/10 text-neutral-400 text-[9px] font-bold px-2 py-0.5 rounded tracking-wider uppercase">
+                            <div className="inline-block mt-0.5 bg-white/5 border border-white/10 text-neutral-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full tracking-wider uppercase">
                               {item.accountType}
                             </div>
                           </td>
 
                           {/* 3. PROFIT TARGET */}
-                          <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm font-bold text-neutral-200">
+                          <td className="py-5 px-4 align-middle whitespace-nowrap">
+                            <div className="text-sm sm:text-base font-extrabold text-neutral-200">
                               {item.profitTarget === 0 ? 'None' : formatCurrency(item.profitTarget)}
                             </div>
                           </td>
 
-                          {/* 4. DRAWDOWN */}
-                          <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm font-bold text-neutral-200">
+                          {/* 4. DRAWDOWN (Warm Orange/Amber Gradient Badge) */}
+                          <td className="py-5 px-4 align-middle whitespace-nowrap">
+                            <div className="text-sm sm:text-base font-extrabold text-neutral-200">
                               {formatCurrency(item.drawdown)}
                             </div>
-                            <div className="inline-block mt-0.5 bg-amber-400/10 border border-amber-400/30 text-amber-300 text-[9px] font-bold px-2 py-0.5 rounded tracking-wider uppercase">
+                            <div className="inline-block mt-0.5 bg-gradient-to-r from-amber-500/15 via-orange-500/15 to-amber-500/15 border border-orange-400/40 text-orange-300 text-[10px] font-black px-2.5 py-0.5 rounded-full tracking-wider uppercase shadow-[0_0_10px_rgba(249,115,22,0.15)]">
                               {item.drawdownType}
                             </div>
                           </td>
 
                           {/* 5. DAILY LOSS */}
-                          <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm font-bold text-neutral-200">
+                          <td className="py-5 px-4 align-middle whitespace-nowrap">
+                            <div className="text-sm sm:text-base font-extrabold text-neutral-200">
                               {formatCurrency(item.dailyLoss)}
                             </div>
                           </td>
 
                           {/* 6. CHALLENGE FEE */}
-                          <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm font-bold text-neutral-300">
+                          <td className="py-5 px-4 align-middle whitespace-nowrap">
+                            <div className="text-sm sm:text-base font-extrabold text-neutral-300">
                               {formatCurrency(item.challengeFee)}
                             </div>
                           </td>
 
-                          {/* 7. TRUE COST */}
-                          <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-base font-black text-[#00e575] drop-shadow-[0_0_8px_rgba(0,229,117,0.35)]">
+                          {/* 7. TRUE COST (VIBRANT YELLOW GOLD METALLIC GLOW) */}
+                          <td className="py-5 px-4 align-middle whitespace-nowrap">
+                            <div className="text-base sm:text-lg font-black text-[#F0C41B] drop-shadow-[0_0_10px_rgba(240,196,27,0.5)]">
                               {formatCurrency(item.trueCost)}
                             </div>
                             {item.isCheapest && (
-                              <div className="inline-flex items-center gap-1 mt-0.5 bg-[#00e575]/15 border border-[#00e575]/40 text-[#00e575] text-[9px] font-black px-2 py-0.5 rounded tracking-wider uppercase animate-pulse">
+                              <div className="inline-flex items-center gap-1 mt-0.5 bg-gradient-to-r from-[#F0C41B]/20 via-[#ff9900]/25 to-[#F0C41B]/20 border border-[#F0C41B]/60 text-[#F0C41B] text-[10px] font-black px-2.5 py-0.5 rounded-full tracking-wider uppercase shadow-[0_0_12px_rgba(240,196,27,0.35)] animate-pulse">
                                 ★ CHEAPEST
                               </div>
                             )}
                           </td>
 
-                          {/* 8. POINTS */}
-                          <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#00e575]/10 border border-[#00e575]/25 text-xs font-bold text-[#00e575]">
-                              <Sparkles size={11} className="text-[#00e575]" />
+                          {/* 8. POINTS (FANCY CYAN/BLUE/PURPLE GRADIENT REWARDS PILL) */}
+                          <td className="py-5 px-4 align-middle whitespace-nowrap">
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-500/15 via-cyan-500/15 to-indigo-500/15 border border-cyan-400/30 text-cyan-300 text-xs font-black shadow-[0_0_12px_rgba(6,182,212,0.15)]">
+                              <Sparkles size={12} className="text-cyan-400" />
                               <span>{item.pointsText || 'Coming soon pts'}</span>
                             </div>
                           </td>
 
-                          {/* 9. DISCOUNT (ANIMATED INTERACTIVE CTA BUTTON) */}
-                          <td className="py-4 px-5 align-middle text-center whitespace-nowrap">
+                          {/* 9. DISCOUNT (PREMIUM METALLIC GOLD / YELLOW / ORANGE GRADIENT CTA BUTTON) */}
+                          <td className="py-5 px-5 align-middle text-center whitespace-nowrap">
                             <div className="flex justify-center">
                               <button
                                 type="button"
                                 onClick={(e) => handleCopyCode(e, item.id, item.discountCode, item.firmName, item.discountPercent)}
-                                className="group/btn relative w-[130px] sm:w-[136px] overflow-hidden rounded-xl p-[2px] bg-gradient-to-r from-[#00e575] via-[#2eff95] to-[#00e575] shadow-[0_4px_16px_rgba(0,229,117,0.35)] hover:shadow-[0_6px_28px_rgba(0,229,117,0.65)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-300 cursor-pointer select-none"
+                                className="group/btn relative w-[138px] sm:w-[150px] overflow-hidden rounded-2xl p-[2px] bg-gradient-to-r from-[#F0C41B] via-[#ffa114] to-[#F0C41B] shadow-[0_4px_22px_rgba(240,196,27,0.4)] hover:shadow-[0_8px_32px_rgba(240,196,27,0.7)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-300 cursor-pointer select-none"
                                 title={`Click to copy code ${item.discountCode} and claim ${item.discountPercent}% off`}
                               >
-                                {/* Continuous Shimmer Light Ray */}
+                                {/* Specular Light Sweep Shimmer Ray */}
                                 <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
 
                                 {/* Outer Card Body */}
-                                <div className="rounded-[10px] bg-transparent">
+                                <div className="rounded-[14px] bg-transparent">
                                   {/* Top Banner: Discount % */}
-                                  <div className="py-1 px-2 text-xs font-black text-black leading-tight uppercase tracking-tight flex items-center justify-center gap-1 drop-shadow-sm">
-                                    <Tag size={11} className="text-black stroke-[2.5]" />
+                                  <div className="py-1.5 px-2 text-xs sm:text-[13px] font-black text-black leading-tight uppercase tracking-tight flex items-center justify-center gap-1 drop-shadow-sm">
+                                    <Tag size={12} className="text-black stroke-[2.5]" />
                                     <span>{item.discountPercent}% OFF</span>
                                   </div>
 
-                                  {/* Bottom Pill: Coupon Code with animated Copy State */}
-                                  <div className={`rounded-lg px-2.5 py-1 text-[11px] font-black flex items-center justify-between gap-1.5 transition-all duration-300 border ${
+                                  {/* Bottom Pill: Coupon Code with Animated Copy State */}
+                                  <div className={`rounded-xl px-3 py-1.5 text-[11px] sm:text-xs font-black flex items-center justify-between gap-1.5 transition-all duration-300 border ${
                                     isCopied
-                                      ? 'bg-emerald-950/90 border-emerald-500 text-[#00e575] shadow-[0_0_10px_rgba(0,229,117,0.4)]'
-                                      : 'bg-[#080a0e] border-black/30 text-white group-hover/btn:bg-[#030406]'
+                                      ? 'bg-amber-950/90 border-[#F0C41B] text-[#F0C41B] shadow-[0_0_12px_rgba(240,196,27,0.5)]'
+                                      : 'bg-[#090b0f] border-black/40 text-white group-hover/btn:bg-[#040507]'
                                   }`}>
                                     {isCopied ? (
                                       <>
-                                        <span className="text-[#00e575] tracking-wider text-[10px] font-extrabold animate-pulse">COPIED!</span>
-                                        <Check size={12} className="text-[#00e575] stroke-[3] animate-scale-in" />
+                                        <span className="text-[#F0C41B] tracking-wider text-[11px] font-extrabold animate-pulse">COPIED!</span>
+                                        <Check size={13} className="text-[#F0C41B] stroke-[3] animate-scale-in" />
                                       </>
                                     ) : (
                                       <>
                                         <span className="tracking-wide text-neutral-100 group-hover/btn:text-white transition-colors">{item.discountCode}</span>
-                                        <Copy size={11} className="text-neutral-400 group-hover/btn:text-[#00e575] group-hover/btn:scale-110 transition-all" />
+                                        <Copy size={12} className="text-[#F0C41B] group-hover/btn:scale-110 transition-all" />
                                       </>
                                     )}
                                   </div>
