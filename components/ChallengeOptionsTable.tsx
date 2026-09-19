@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Tag, Landmark, RotateCcw, Copy, Check, ChevronDown, ArrowUpDown, ArrowUp, ArrowDown, ExternalLink, Search, Info, CheckCircle2 } from 'lucide-react';
+import { Tag, Landmark, RotateCcw, Copy, Check, ChevronDown, ArrowUpDown, ArrowUp, ArrowDown, ExternalLink, Search, Info, CheckCircle2, Sparkles } from 'lucide-react';
 
 // ── FIRM LOGO HELPER COMPONENT ──
 const FirmIcon: React.FC<{ name: string; url?: string }> = ({ name, url }) => {
@@ -555,7 +555,13 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
     });
   };
 
-  const formatCurrency = (val: number) => '$' + val.toLocaleString();
+  const formatCurrency = (val: number) => {
+    if (val === 0) return 'None';
+    return '$' + Number(val).toLocaleString('en-US', {
+      minimumFractionDigits: Number.isInteger(val) ? 0 : 2,
+      maximumFractionDigits: 2
+    });
+  };
 
   return (
     <div className={`w-full ${className}`}>
@@ -787,7 +793,7 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
       {/* ════════════════ VIEW 2: AVAILABLE CHALLENGE OPTIONS TABLE ════════════════ */}
       {activeTab === 'challenge_options' && (
         <div className="space-y-6">
-          {/* Header Row: Title & Subtitle + Firm Dropdown & Reset */}
+          {/* Header Row: Title & Subtitle + Toolbar (Firm Dropdown & Reset) */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div>
               <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
@@ -798,19 +804,21 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 self-start lg:self-center">
-              <span className="hidden sm:inline-block text-xs text-neutral-400 font-medium">
-                Click Firm Name For Full Details
-              </span>
+            {/* Toolbar: Info Pill + Firm Selector + Animated Reset Button */}
+            <div className="flex flex-wrap items-center gap-2.5 self-start lg:self-center">
+              <div className="hidden sm:inline-flex items-center gap-1.5 text-xs text-neutral-400 bg-[#0d0e12] border border-white/5 rounded-xl px-3 py-2 font-medium">
+                <Info size={13} className="text-[#00e575]" />
+                <span>Click firm name for details</span>
+              </div>
 
               {/* Firm Selector Dropdown */}
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-neutral-300">Firm</span>
+              <div className="flex items-center gap-2 bg-[#0d0e12] hover:bg-[#12141a] border border-white/10 hover:border-white/20 rounded-xl px-3 py-2 transition-all">
+                <span className="text-xs font-bold text-neutral-400">Firm</span>
                 <div className="relative">
                   <select
                     value={selectedFirm}
                     onChange={(e) => setSelectedFirm(e.target.value)}
-                    className="appearance-none bg-[#111318] hover:bg-[#15181f] border border-neutral-800 text-white rounded-lg pl-3 pr-8 py-1.5 text-xs font-bold focus:outline-none focus:border-[#00e575] cursor-pointer transition-colors"
+                    className="appearance-none bg-transparent text-white pr-6 text-xs font-extrabold focus:outline-none cursor-pointer transition-colors"
                   >
                     {firmDropdownOptions.map((opt) => (
                       <option key={opt} value={opt} className="bg-[#111318] text-white">
@@ -818,11 +826,11 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                       </option>
                     ))}
                   </select>
-                  <ChevronDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  <ChevronDown size={13} className="absolute right-0 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
                 </div>
               </div>
 
-              {/* Reset Button */}
+              {/* Reset Button with Animated Spinning Icon */}
               <button
                 onClick={() => {
                   setSelectedType('All Types');
@@ -831,58 +839,62 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                   setSortField(null);
                   setSortOrder('asc');
                 }}
-                className="bg-[#111318] hover:bg-white/5 border border-neutral-800 hover:border-neutral-700 text-neutral-300 hover:text-white rounded-lg px-3 py-1.5 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+                className="group flex items-center gap-2 bg-[#0d0e12] hover:bg-white/[0.06] border border-white/10 hover:border-white/20 active:scale-95 text-xs font-black text-neutral-300 hover:text-white rounded-xl px-3.5 py-2 transition-all duration-200 cursor-pointer select-none shadow-sm"
                 title="Reset all filters"
               >
-                <RotateCcw size={12} className="text-neutral-400" />
-                <span>RESET</span>
+                <RotateCcw size={13} className="text-neutral-400 group-hover:text-[#00e575] transition-transform duration-500 ease-out group-hover:-rotate-180" />
+                <span className="tracking-wide">RESET</span>
               </button>
             </div>
           </div>
 
-          {/* Filter Bars (Two Pill Boxes Side-by-Side) */}
-          <div className="flex flex-col md:flex-row gap-3">
+          {/* Filter Pills Toolbar: Step Types & Account Sizes Aligned */}
+          <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3 p-2 bg-[#0a0b0e] border border-white/10 rounded-2xl shadow-lg">
             {/* Step Types Filter */}
-            <div className="inline-flex items-center bg-[#0b0c10] border border-neutral-800/90 rounded-xl p-1 gap-1 overflow-x-auto">
+            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
+              <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider px-2 shrink-0 hidden sm:inline">Type:</span>
               {['All Types', 'One Step', 'Two Step', 'Instant Funded'].map((type) => {
                 const isActive = selectedType === type;
                 return (
                   <button
                     key={type}
                     onClick={() => setSelectedType(type)}
-                    className={`relative px-3.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+                    className={`group relative px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer select-none hover:scale-[1.03] active:scale-95 ${
                       isActive
-                        ? 'border border-[#00e575] bg-[#00e575]/10 text-[#00e575] shadow-[0_0_12px_rgba(0,229,117,0.2)]'
-                        : 'text-neutral-400 hover:text-white border border-transparent'
+                        ? 'bg-[#00e575]/15 text-[#00e575] border border-[#00e575]/60 shadow-[0_0_15px_rgba(0,229,117,0.25)]'
+                        : 'text-neutral-400 hover:text-white hover:bg-white/[0.04] border border-transparent'
                     }`}
                   >
                     {isActive && (
-                      <span className="absolute -top-[1px] left-1/2 -translate-x-1/2 w-6 h-[2.5px] bg-[#00e575] rounded-full shadow-[0_0_8px_#00e575]" />
+                      <span className="absolute -top-[1px] inset-x-3 h-[2px] bg-gradient-to-r from-transparent via-[#00e575] to-transparent rounded-full shadow-[0_0_8px_#00e575]" />
                     )}
-                    <span>{type}</span>
+                    <span className="relative z-10">{type}</span>
                   </button>
                 );
               })}
             </div>
 
+            <div className="hidden xl:block w-[1px] h-6 bg-white/10 shrink-0" />
+
             {/* Account Sizes Filter */}
-            <div className="inline-flex items-center bg-[#0b0c10] border border-neutral-800/90 rounded-xl p-1 gap-1 overflow-x-auto">
+            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
+              <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider px-2 shrink-0 hidden sm:inline">Size:</span>
               {['All Sizes', '5K', '10K', '25K', '50K', '100K', '200K'].map((size) => {
                 const isActive = selectedSize === size;
                 return (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`relative px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+                    className={`group relative px-3 sm:px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer select-none hover:scale-[1.03] active:scale-95 ${
                       isActive
-                        ? 'border border-[#00e575] bg-[#00e575]/10 text-[#00e575] shadow-[0_0_12px_rgba(0,229,117,0.2)]'
-                        : 'text-neutral-400 hover:text-white border border-transparent'
+                        ? 'bg-[#00e575]/15 text-[#00e575] border border-[#00e575]/60 shadow-[0_0_15px_rgba(0,229,117,0.25)]'
+                        : 'text-neutral-400 hover:text-white hover:bg-white/[0.04] border border-transparent'
                     }`}
                   >
                     {isActive && (
-                      <span className="absolute -top-[1px] left-1/2 -translate-x-1/2 w-6 h-[2.5px] bg-[#00e575] rounded-full shadow-[0_0_8px_#00e575]" />
+                      <span className="absolute -top-[1px] inset-x-2 h-[2px] bg-gradient-to-r from-transparent via-[#00e575] to-transparent rounded-full shadow-[0_0_8px_#00e575]" />
                     )}
-                    <span>{size}</span>
+                    <span className="relative z-10">{size}</span>
                   </button>
                 );
               })}
@@ -890,17 +902,17 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
           </div>
 
           {/* Table Container */}
-          <div className="w-full overflow-hidden rounded-2xl bg-[#090a0d] border border-neutral-800/40 shadow-2xl">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse min-w-[900px]">
+          <div className="w-full overflow-hidden rounded-2xl bg-[#090a0d] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
+            <div className="overflow-x-auto scrollbar-thin">
+              <table className="w-full text-left border-collapse min-w-[960px]">
                 {/* Table Header */}
                 <thead>
-                  <tr className="border-b border-neutral-800/40 text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
-                    <th className="py-3.5 px-4 font-bold">FIRM</th>
-                    <th className="py-3.5 px-4 font-bold">ACCOUNT SIZE</th>
-                    <th className="py-3.5 px-4 font-bold">PROFIT TARGET</th>
-                    <th className="py-3.5 px-4 font-bold">DRAWDOWN</th>
-                    <th className="py-3.5 px-4 font-bold">DAILY LOSS</th>
+                  <tr className="border-b border-white/10 bg-[#0c0d12] text-[11px] font-extrabold text-neutral-400 uppercase tracking-wider">
+                    <th className="py-4 px-5 text-left font-bold min-w-[200px]">FIRM</th>
+                    <th className="py-4 px-4 text-left font-bold min-w-[130px]">ACCOUNT SIZE</th>
+                    <th className="py-4 px-4 text-left font-bold min-w-[110px]">PROFIT TARGET</th>
+                    <th className="py-4 px-4 text-left font-bold min-w-[120px]">DRAWDOWN</th>
+                    <th className="py-4 px-4 text-left font-bold min-w-[100px]">DAILY LOSS</th>
                     <th 
                       onClick={() => {
                         if (sortField === 'challengeFee') {
@@ -911,14 +923,14 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                           setSortOrder('asc');
                         }
                       }}
-                      className="py-3.5 px-4 font-bold cursor-pointer hover:text-white transition-colors select-none"
+                      className="py-4 px-4 text-left font-bold min-w-[120px] cursor-pointer hover:text-white transition-colors select-none group/sort"
                     >
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1.5">
                         <span>CHALLENGE FEE</span>
                         {sortField === 'challengeFee' ? (
-                          sortOrder === 'asc' ? <ArrowUp size={12} className="text-[#00e575]" /> : <ArrowDown size={12} className="text-[#00e575]" />
+                          sortOrder === 'asc' ? <ArrowUp size={13} className="text-[#00e575]" /> : <ArrowDown size={13} className="text-[#00e575]" />
                         ) : (
-                          <ArrowUpDown size={12} className="text-neutral-500" />
+                          <ArrowUpDown size={13} className="text-neutral-500 group-hover/sort:text-white transition-colors" />
                         )}
                       </div>
                     </th>
@@ -932,27 +944,27 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                           setSortOrder('asc');
                         }
                       }}
-                      className="py-3.5 px-4 font-bold cursor-pointer hover:text-white transition-colors select-none"
+                      className="py-4 px-4 text-left font-bold min-w-[110px] cursor-pointer hover:text-white transition-colors select-none group/sort"
                     >
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1.5">
                         <span>TRUE COST</span>
                         {sortField === 'trueCost' ? (
-                          sortOrder === 'asc' ? <ArrowUp size={12} className="text-[#00e575]" /> : <ArrowDown size={12} className="text-[#00e575]" />
+                          sortOrder === 'asc' ? <ArrowUp size={13} className="text-[#00e575]" /> : <ArrowDown size={13} className="text-[#00e575]" />
                         ) : (
-                          <ArrowUpDown size={12} className="text-neutral-500" />
+                          <ArrowUpDown size={13} className="text-neutral-500 group-hover/sort:text-white transition-colors" />
                         )}
                       </div>
                     </th>
-                    <th className="py-3.5 px-4 font-bold">POINTS</th>
-                    <th className="py-3.5 px-4 font-bold text-center">DISCOUNT</th>
+                    <th className="py-4 px-4 text-left font-bold min-w-[130px]">POINTS</th>
+                    <th className="py-4 px-5 text-center font-bold min-w-[150px]">DISCOUNT</th>
                   </tr>
                 </thead>
 
                 {/* Table Body */}
-                <tbody className="divide-y divide-neutral-800/40">
+                <tbody className="divide-y divide-white/[0.06]">
                   {filteredChallenges.length === 0 ? (
                     <tr>
-                      <td colSpan={9} className="py-12 text-center text-neutral-400 text-sm">
+                      <td colSpan={9} className="py-14 text-center text-neutral-400 text-sm">
                         No challenge options found matching the selected filters.
                       </td>
                     </tr>
@@ -962,10 +974,10 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                       return (
                         <tr
                           key={item.id}
-                          className="hover:bg-white/[0.02] transition-colors group"
+                          className="hover:bg-white/[0.03] transition-colors group"
                         >
                           {/* 1. FIRM */}
-                          <td className="py-4 px-4 align-middle">
+                          <td className="py-4 px-5 align-middle">
                             <div className="flex items-center gap-3">
                               <FirmIcon name={item.firmName} url={item.firmLogo} />
                               <div>
@@ -981,87 +993,105 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
 
                           {/* 2. ACCOUNT SIZE */}
                           <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-base font-extrabold text-white">
+                            <div className="text-base font-black text-white tracking-tight">
                               {formatCurrency(item.accountSize)}
                             </div>
-                            <div className="inline-block mt-0.5 bg-neutral-800/80 text-neutral-400 text-[9px] font-bold px-2 py-0.5 rounded tracking-wider uppercase">
+                            <div className="inline-block mt-0.5 bg-white/5 border border-white/10 text-neutral-400 text-[9px] font-bold px-2 py-0.5 rounded tracking-wider uppercase">
                               {item.accountType}
                             </div>
                           </td>
 
                           {/* 3. PROFIT TARGET */}
                           <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm font-bold text-white">
+                            <div className="text-sm font-bold text-neutral-200">
                               {item.profitTarget === 0 ? 'None' : formatCurrency(item.profitTarget)}
                             </div>
                           </td>
 
                           {/* 4. DRAWDOWN */}
                           <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm font-bold text-white">
+                            <div className="text-sm font-bold text-neutral-200">
                               {formatCurrency(item.drawdown)}
                             </div>
-                            <div className="inline-block mt-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[9px] font-bold px-2 py-0.5 rounded tracking-wider uppercase">
+                            <div className="inline-block mt-0.5 bg-amber-400/10 border border-amber-400/30 text-amber-300 text-[9px] font-bold px-2 py-0.5 rounded tracking-wider uppercase">
                               {item.drawdownType}
                             </div>
                           </td>
 
                           {/* 5. DAILY LOSS */}
                           <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm font-bold text-white">
+                            <div className="text-sm font-bold text-neutral-200">
                               {formatCurrency(item.dailyLoss)}
                             </div>
                           </td>
 
                           {/* 6. CHALLENGE FEE */}
                           <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm font-bold text-white">
+                            <div className="text-sm font-bold text-neutral-300">
                               {formatCurrency(item.challengeFee)}
                             </div>
                           </td>
 
                           {/* 7. TRUE COST */}
                           <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm sm:text-base font-extrabold text-[#00e575] drop-shadow-[0_0_6px_rgba(0,229,117,0.3)]">
+                            <div className="text-base font-black text-[#00e575] drop-shadow-[0_0_8px_rgba(0,229,117,0.35)]">
                               {formatCurrency(item.trueCost)}
                             </div>
                             {item.isCheapest && (
-                              <div className="inline-block mt-0.5 bg-[#00e575]/15 border border-[#00e575]/40 text-[#00e575] text-[9px] font-black px-2 py-0.5 rounded tracking-wider uppercase">
-                                CHEAPEST
+                              <div className="inline-flex items-center gap-1 mt-0.5 bg-[#00e575]/15 border border-[#00e575]/40 text-[#00e575] text-[9px] font-black px-2 py-0.5 rounded tracking-wider uppercase animate-pulse">
+                                ★ CHEAPEST
                               </div>
                             )}
                           </td>
 
                           {/* 8. POINTS */}
                           <td className="py-4 px-4 align-middle whitespace-nowrap">
-                            <div className="text-xs font-bold text-[#00e575]">
-                              {item.pointsText || 'Coming soon pts'}
+                            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#00e575]/10 border border-[#00e575]/25 text-xs font-bold text-[#00e575]">
+                              <Sparkles size={11} className="text-[#00e575]" />
+                              <span>{item.pointsText || 'Coming soon pts'}</span>
                             </div>
                           </td>
 
-                          {/* 9. DISCOUNT (HIGH IMPACT CTA) */}
-                          <td className="py-4 px-4 align-middle text-center whitespace-nowrap">
-                            <div
-                              onClick={(e) => handleCopyCode(e, item.id, item.discountCode, item.firmName, item.discountPercent)}
-                              className="inline-block w-full max-w-[124px] bg-[#00e575] hover:bg-[#00ff83] transition-all duration-300 rounded-xl p-1.5 shadow-[0_0_18px_rgba(0,229,117,0.35)] hover:shadow-[0_0_26px_rgba(0,229,117,0.55)] hover:scale-[1.03] active:scale-95 cursor-pointer select-none"
-                              title={`Click to copy code ${item.discountCode}`}
-                            >
-                              <div className="text-xs font-black text-black leading-tight uppercase tracking-tight">
-                                {item.discountPercent}% OFF
-                              </div>
-                              <div className="bg-black/90 hover:bg-black text-white rounded-lg px-2 py-1 text-[10px] font-black flex items-center justify-center gap-1 mt-1 transition-colors">
-                                {isCopied ? (
-                                  <>
-                                    <Check size={11} className="text-[#00e575]" />
-                                    <span className="text-[#00e575]">COPIED</span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <span>{item.discountCode}</span>
-                                    <Copy size={11} className="text-neutral-400 group-hover:text-white" />
-                                  </>
-                                )}
-                              </div>
+                          {/* 9. DISCOUNT (ANIMATED INTERACTIVE CTA BUTTON) */}
+                          <td className="py-4 px-5 align-middle text-center whitespace-nowrap">
+                            <div className="flex justify-center">
+                              <button
+                                type="button"
+                                onClick={(e) => handleCopyCode(e, item.id, item.discountCode, item.firmName, item.discountPercent)}
+                                className="group/btn relative w-[130px] sm:w-[136px] overflow-hidden rounded-xl p-[2px] bg-gradient-to-r from-[#00e575] via-[#2eff95] to-[#00e575] shadow-[0_4px_16px_rgba(0,229,117,0.35)] hover:shadow-[0_6px_28px_rgba(0,229,117,0.65)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-300 cursor-pointer select-none"
+                                title={`Click to copy code ${item.discountCode} and claim ${item.discountPercent}% off`}
+                              >
+                                {/* Continuous Shimmer Light Ray */}
+                                <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
+
+                                {/* Outer Card Body */}
+                                <div className="rounded-[10px] bg-transparent">
+                                  {/* Top Banner: Discount % */}
+                                  <div className="py-1 px-2 text-xs font-black text-black leading-tight uppercase tracking-tight flex items-center justify-center gap-1 drop-shadow-sm">
+                                    <Tag size={11} className="text-black stroke-[2.5]" />
+                                    <span>{item.discountPercent}% OFF</span>
+                                  </div>
+
+                                  {/* Bottom Pill: Coupon Code with animated Copy State */}
+                                  <div className={`rounded-lg px-2.5 py-1 text-[11px] font-black flex items-center justify-between gap-1.5 transition-all duration-300 border ${
+                                    isCopied
+                                      ? 'bg-emerald-950/90 border-emerald-500 text-[#00e575] shadow-[0_0_10px_rgba(0,229,117,0.4)]'
+                                      : 'bg-[#080a0e] border-black/30 text-white group-hover/btn:bg-[#030406]'
+                                  }`}>
+                                    {isCopied ? (
+                                      <>
+                                        <span className="text-[#00e575] tracking-wider text-[10px] font-extrabold animate-pulse">COPIED!</span>
+                                        <Check size={12} className="text-[#00e575] stroke-[3] animate-scale-in" />
+                                      </>
+                                    ) : (
+                                      <>
+                                        <span className="tracking-wide text-neutral-100 group-hover/btn:text-white transition-colors">{item.discountCode}</span>
+                                        <Copy size={11} className="text-neutral-400 group-hover/btn:text-[#00e575] group-hover/btn:scale-110 transition-all" />
+                                      </>
+                                    )}
+                                  </div>
+                                </div>
+                              </button>
                             </div>
                           </td>
                         </tr>
