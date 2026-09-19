@@ -567,31 +567,39 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
         </div>
       )}
 
-      {/* ── TOP VIEW TOGGLE: [🏛️ All Firms] FIRST, THEN [🏷️ Challenge Options] ── */}
+      {/* ── TOP VIEW TOGGLE: EQUAL SIZE & YELLOW METALLIC COLORED ── */}
       <div className="flex justify-center mb-8 sm:mb-10">
-        <div className="inline-flex items-center p-1.5 rounded-2xl bg-[#0b0c10] border border-neutral-800/90 shadow-lg">
+        <div className="inline-flex items-center p-1.5 rounded-2xl bg-[#0a0b0e] border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.1)]">
+          {/* BUTTON 1: ALL FIRMS */}
           <button
             onClick={() => setActiveTab('all_firms')}
-            className={`flex items-center gap-2 px-5 sm:px-6 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
+            className={`relative flex items-center justify-center gap-2.5 w-[160px] sm:w-[195px] py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-black transition-all duration-300 cursor-pointer select-none ${
               activeTab === 'all_firms'
-                ? 'border border-[#a6ff00]/80 bg-[#a6ff00]/10 text-[#a6ff00] shadow-[0_0_15px_rgba(166,255,0,0.25)]'
-                : 'text-neutral-400 hover:text-white border border-transparent'
+                ? 'bg-gradient-to-b from-[#F0C41B]/25 via-[#F0C41B]/12 to-[#F0C41B]/5 text-[#F0C41B] border border-[#F0C41B] shadow-[0_0_20px_rgba(240,196,27,0.35),inset_0_1px_2px_rgba(255,235,140,0.4)] drop-shadow-[0_0_8px_rgba(240,196,27,0.4)]'
+                : 'text-neutral-400 hover:text-neutral-200 hover:bg-white/[0.03] border border-transparent'
             }`}
           >
-            <Landmark size={15} className={activeTab === 'all_firms' ? 'text-[#a6ff00]' : 'text-neutral-400'} />
-            <span>All Firms</span>
+            {activeTab === 'all_firms' && (
+              <span className="absolute -top-[1px] inset-x-4 h-[1.5px] bg-gradient-to-r from-transparent via-[#ffe875] to-transparent pointer-events-none" />
+            )}
+            <Landmark size={16} className={activeTab === 'all_firms' ? 'text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.6)]' : 'text-neutral-400'} />
+            <span className="tracking-wide">All Firms</span>
           </button>
 
+          {/* BUTTON 2: CHALLENGE OPTIONS */}
           <button
             onClick={() => setActiveTab('challenge_options')}
-            className={`flex items-center gap-2 px-5 sm:px-6 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
+            className={`relative flex items-center justify-center gap-2.5 w-[160px] sm:w-[195px] py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-black transition-all duration-300 cursor-pointer select-none ${
               activeTab === 'challenge_options'
-                ? 'border border-[#00e575]/80 bg-[#00e575]/10 text-[#00e575] shadow-[0_0_15px_rgba(0,229,117,0.25)]'
-                : 'text-neutral-400 hover:text-white border border-transparent'
+                ? 'bg-gradient-to-b from-[#F0C41B]/25 via-[#F0C41B]/12 to-[#F0C41B]/5 text-[#F0C41B] border border-[#F0C41B] shadow-[0_0_20px_rgba(240,196,27,0.35),inset_0_1px_2px_rgba(255,235,140,0.4)] drop-shadow-[0_0_8px_rgba(240,196,27,0.4)]'
+                : 'text-neutral-400 hover:text-neutral-200 hover:bg-white/[0.03] border border-transparent'
             }`}
           >
-            <Tag size={15} className={activeTab === 'challenge_options' ? 'text-[#00e575]' : 'text-neutral-400'} />
-            <span>Challenge Options</span>
+            {activeTab === 'challenge_options' && (
+              <span className="absolute -top-[1px] inset-x-4 h-[1.5px] bg-gradient-to-r from-transparent via-[#ffe875] to-transparent pointer-events-none" />
+            )}
+            <Tag size={16} className={activeTab === 'challenge_options' ? 'text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.6)]' : 'text-neutral-400'} />
+            <span className="tracking-wide">Challenge Options</span>
           </button>
         </div>
       </div>
