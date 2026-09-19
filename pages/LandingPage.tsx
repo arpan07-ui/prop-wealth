@@ -199,19 +199,26 @@ const LandingPage: React.FC = () => {
 
                 {/* ── 3D TILTED FLOATING CARDS (DESKTOP) ── */}
 
-                {/* CARD 1: TOP LEFT - Up to 90% OFF (Aligned with Upper-Left of Logo Card) */}
+                {/* CARD 1: TOP LEFT - Up to 90% OFF */}
                 <div 
                   className="hidden md:block absolute top-0 sm:top-1 right-[calc(50%+108px)] sm:right-[calc(50%+122px)] lg:right-[calc(50%+134px)] animate-float z-30 pointer-events-auto" 
                   style={{ animationDelay: '0s' }}
                 >
                   <div 
-                    className="bg-[#0b0c11]/85 border border-white/[0.12] hover:border-[#F0C41B]/50 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_15px_rgba(240,196,27,0.06)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
+                    className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
                     style={{
                       transform: 'perspective(600px) rotateY(16deg) rotateX(4deg) rotateZ(-2deg)',
                       transformStyle: 'preserve-3d'
                     }}
                   >
-                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/20 flex items-center justify-center text-[#F0C41B] shrink-0">
+                    {/* Glowing Top Light Ray */}
+                    <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
+                    {/* Subtle Corner Sparkle */}
+                    <div className="absolute -top-1.5 -left-1.5 pointer-events-none opacity-50 animate-pulse">
+                      <Sparkles size={12} className="text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.6)]" />
+                    </div>
+
+                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
                       <Tag size={19} className="stroke-[2.2] fill-[#F0C41B]/20" />
                     </div>
                     <div>
@@ -221,19 +228,26 @@ const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* CARD 2: BOTTOM LEFT - Compare 50+ Firms (Aligned with Lower-Left of Logo Card) */}
+                {/* CARD 2: BOTTOM LEFT - Compare 50+ Firms */}
                 <div 
                   className="hidden md:block absolute top-30 sm:top-34 lg:top-38 right-[calc(50%+116px)] sm:right-[calc(50%+130px)] lg:right-[calc(50%+142px)] animate-float z-30 pointer-events-auto" 
                   style={{ animationDelay: '1.4s' }}
                 >
                   <div 
-                    className="bg-[#0b0c11]/85 border border-white/[0.12] hover:border-[#F0C41B]/50 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_15px_rgba(240,196,27,0.06)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
+                    className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
                     style={{
                       transform: 'perspective(600px) rotateY(16deg) rotateX(-5deg) rotateZ(1deg)',
                       transformStyle: 'preserve-3d'
                     }}
                   >
-                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/20 flex items-center justify-center text-[#F0C41B] shrink-0">
+                    {/* Glowing Top Light Ray */}
+                    <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
+                    {/* Subtle Corner Sparkle */}
+                    <div className="absolute -bottom-1 -left-1.5 pointer-events-none opacity-45 animate-pulse" style={{ animationDelay: '0.8s' }}>
+                      <Sparkles size={11} className="text-[#F0C41B] drop-shadow-[0_0_5px_rgba(240,196,27,0.5)]" />
+                    </div>
+
+                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
                       <BarChart3 size={19} className="stroke-[2.2]" />
                     </div>
                     <div>
@@ -243,19 +257,26 @@ const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* CARD 3: TOP RIGHT - Earn Rewards (Aligned with Upper-Right of Logo Card) */}
+                {/* CARD 3: TOP RIGHT - Earn Rewards */}
                 <div 
                   className="hidden md:block absolute top-0 sm:top-1 left-[calc(50%+108px)] sm:left-[calc(50%+122px)] lg:left-[calc(50%+134px)] animate-float z-30 pointer-events-auto" 
                   style={{ animationDelay: '0.7s' }}
                 >
                   <div 
-                    className="bg-[#0b0c11]/85 border border-white/[0.12] hover:border-[#F0C41B]/50 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_15px_rgba(240,196,27,0.06)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
+                    className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
                     style={{
                       transform: 'perspective(600px) rotateY(-16deg) rotateX(4deg) rotateZ(2deg)',
                       transformStyle: 'preserve-3d'
                     }}
                   >
-                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/20 flex items-center justify-center text-[#F0C41B] shrink-0">
+                    {/* Glowing Top Light Ray */}
+                    <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
+                    {/* Subtle Corner Sparkle */}
+                    <div className="absolute -top-1.5 -right-1.5 pointer-events-none opacity-50 animate-pulse" style={{ animationDelay: '0.4s' }}>
+                      <Sparkles size={12} className="text-[#F0C41B] drop-shadow-[0_0_6px_rgba(240,196,27,0.6)]" />
+                    </div>
+
+                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
                       <Gift size={19} className="stroke-[2.2]" />
                     </div>
                     <div>
@@ -265,19 +286,26 @@ const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* CARD 4: BOTTOM RIGHT - Exclusive Perks (Aligned with Lower-Right of Logo Card) */}
+                {/* CARD 4: BOTTOM RIGHT - Exclusive Perks */}
                 <div 
                   className="hidden md:block absolute top-30 sm:top-34 lg:top-38 left-[calc(50%+116px)] sm:left-[calc(50%+130px)] lg:left-[calc(50%+142px)] animate-float z-30 pointer-events-auto" 
                   style={{ animationDelay: '2.1s' }}
                 >
                   <div 
-                    className="bg-[#0b0c11]/85 border border-white/[0.12] hover:border-[#F0C41B]/50 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_15px_rgba(240,196,27,0.06)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
+                    className="relative bg-[#0c0d13]/90 border border-white/[0.14] hover:border-[#F0C41B]/60 backdrop-blur-md rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-[0_15px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(240,196,27,0.12),inset_0_1px_1px_rgba(255,225,120,0.3)] flex items-center gap-3 text-left transition-all duration-300 hover:scale-105 cursor-pointer whitespace-nowrap"
                     style={{
                       transform: 'perspective(600px) rotateY(-16deg) rotateX(-5deg) rotateZ(-1deg)',
                       transformStyle: 'preserve-3d'
                     }}
                   >
-                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/20 flex items-center justify-center text-[#F0C41B] shrink-0">
+                    {/* Glowing Top Light Ray */}
+                    <div className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#F0C41B]/75 to-transparent pointer-events-none" />
+                    {/* Subtle Corner Sparkle */}
+                    <div className="absolute -bottom-1 -right-1.5 pointer-events-none opacity-45 animate-pulse" style={{ animationDelay: '1.2s' }}>
+                      <Sparkles size={11} className="text-[#F0C41B] drop-shadow-[0_0_5px_rgba(240,196,27,0.5)]" />
+                    </div>
+
+                    <div className="w-9 h-9 rounded-xl bg-[#F0C41B]/10 border border-[#F0C41B]/25 flex items-center justify-center text-[#F0C41B] shrink-0 shadow-[0_0_10px_rgba(240,196,27,0.15)]">
                       <Zap size={19} className="stroke-[2.2] fill-[#F0C41B]/20" />
                     </div>
                     <div>
