@@ -848,17 +848,17 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
             </div>
           </div>
 
-          {/* Filter Pills Toolbar: COMPACT & PROFESSIONAL, NO "TYPE:" OR "SIZE:" LABELS, REFINED GOLD ACCENTS */}
+          {/* Filter Pills Toolbar: COMPACT & PROFESSIONAL, NO "TYPE:" OR "SIZE:" LABELS, NO GREY SCROLLBAR */}
           <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-2.5 p-1.5 bg-[#0a0b0e] border border-white/10 rounded-xl shadow-md">
-            {/* Step Types Filter Buttons */}
-            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
+            {/* Step Types Filter Buttons (NO SCROLLBAR / NO GREY LINE) */}
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-1.5 overflow-hidden no-scrollbar scrollbar-none py-0.5">
               {['All Types', 'One Step', 'Two Step', 'Instant Funded'].map((type) => {
                 const isActive = selectedType === type;
                 return (
                   <button
                     key={type}
                     onClick={() => setSelectedType(type)}
-                    className={`group relative px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer select-none hover:scale-[1.02] active:scale-95 ${
+                    className={`group relative px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer select-none outline-none focus:outline-none focus:ring-0 hover:scale-[1.02] active:scale-95 ${
                       isActive
                         ? 'bg-gradient-to-b from-[#F0C41B]/20 via-[#F0C41B]/10 to-[#F0C41B]/5 text-[#F0C41B] border border-[#F0C41B]/90 shadow-[0_2px_8px_rgba(240,196,27,0.18)]'
                         : 'text-neutral-400 hover:text-white hover:bg-white/[0.04] border border-transparent'
@@ -875,15 +875,15 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
 
             <div className="hidden xl:block w-[1px] h-6 bg-white/10 shrink-0" />
 
-            {/* Account Sizes Filter Buttons */}
-            <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-0.5">
+            {/* Account Sizes Filter Buttons (NO SCROLLBAR / NO GREY LINE) */}
+            <div className="flex items-center gap-1 overflow-x-auto no-scrollbar scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-0.5">
               {['All Sizes', '5K', '10K', '25K', '50K', '100K', '200K'].map((size) => {
                 const isActive = selectedSize === size;
                 return (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`group relative px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer select-none hover:scale-[1.02] active:scale-95 ${
+                    className={`group relative px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer select-none outline-none focus:outline-none focus:ring-0 hover:scale-[1.02] active:scale-95 ${
                       isActive
                         ? 'bg-gradient-to-b from-[#F0C41B]/20 via-[#F0C41B]/10 to-[#F0C41B]/5 text-[#F0C41B] border border-[#F0C41B]/90 shadow-[0_2px_8px_rgba(240,196,27,0.18)]'
                         : 'text-neutral-400 hover:text-white hover:bg-white/[0.04] border border-transparent'
@@ -1050,31 +1050,34 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                             </div>
                           </td>
 
-                          {/* 9. DISCOUNT (COMPACT & PROFESSIONAL METALLIC GOLD CTA) */}
+                          {/* 9. DISCOUNT (ULTRA-PREMIUM GLOSSY & GLASSY CTA) */}
                           <td className="py-3.5 px-4 align-middle text-center whitespace-nowrap">
                             <div className="flex justify-center">
                               <button
                                 type="button"
                                 onClick={(e) => handleCopyCode(e, item.id, item.discountCode, item.firmName, item.discountPercent)}
-                                className="group/btn relative w-[114px] sm:w-[122px] overflow-hidden rounded-xl p-[1.5px] bg-gradient-to-r from-[#F0C41B] via-[#f7cd34] to-[#e5a800] shadow-[0_2px_8px_rgba(0,0,0,0.4)] hover:shadow-[0_3px_12px_rgba(240,196,27,0.25)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-200 cursor-pointer select-none"
+                                className="group/btn relative w-[116px] sm:w-[124px] overflow-hidden rounded-xl p-[1px] bg-gradient-to-b from-white/30 via-white/10 to-[#F0C41B]/40 hover:to-[#F0C41B]/70 shadow-[0_4px_16px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.35)] hover:shadow-[0_6px_22px_rgba(240,196,27,0.3),inset_0_1px_2px_rgba(255,255,255,0.5)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-300 cursor-pointer select-none backdrop-blur-md"
                                 title={`Click to copy code ${item.discountCode}`}
                               >
-                                {/* Specular Light Ray */}
-                                <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-600 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+                                {/* Upper Specular Curved Glass Highlight */}
+                                <span className="absolute top-0 inset-x-0 h-[48%] bg-gradient-to-b from-white/25 via-white/10 to-transparent pointer-events-none rounded-t-xl z-10" />
 
-                                {/* Outer Card Body */}
-                                <div className="rounded-[10px] bg-transparent">
-                                  {/* Top Banner: Discount % */}
-                                  <div className="py-0.5 px-1.5 text-[11px] font-black text-black leading-tight uppercase tracking-tight flex items-center justify-center gap-1">
-                                    <Tag size={10} className="text-black stroke-[2.5]" />
+                                {/* Glass Shimmer Specular Light Sweep */}
+                                <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none z-20" />
+
+                                {/* Glass Card Surface */}
+                                <div className="relative rounded-[11px] bg-gradient-to-b from-[#181c26]/90 via-[#0e1119]/95 to-[#090b0e] p-1 border border-white/10 group-hover/btn:border-[#F0C41B]/40 transition-colors">
+                                  {/* Top Glossy Banner: Discount % */}
+                                  <div className="py-0.5 px-1.5 text-[11px] font-black text-[#F0C41B] leading-tight uppercase tracking-tight flex items-center justify-center gap-1 drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                                    <Tag size={10} className="text-[#F0C41B] stroke-[2.5]" />
                                     <span>{item.discountPercent}% OFF</span>
                                   </div>
 
-                                  {/* Bottom Pill: Coupon Code */}
-                                  <div className={`rounded-lg px-2 py-0.5 text-[10px] font-bold flex items-center justify-between gap-1 transition-all duration-200 border ${
+                                  {/* Bottom Glass Pill: Coupon Code */}
+                                  <div className={`mt-0.5 rounded-lg px-2 py-1 text-[10px] font-extrabold flex items-center justify-between gap-1 transition-all duration-200 border ${
                                     isCopied
-                                      ? 'bg-amber-950/90 border-[#F0C41B] text-[#F0C41B]'
-                                      : 'bg-[#090b0e] border-black/30 text-white group-hover/btn:bg-[#040507]'
+                                      ? 'bg-[#F0C41B]/20 border-[#F0C41B] text-[#F0C41B] shadow-[0_0_12px_rgba(240,196,27,0.35),inset_0_1px_2px_rgba(255,235,140,0.3)]'
+                                      : 'bg-black/60 hover:bg-black/80 border-white/10 text-white shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)]'
                                   }`}>
                                     {isCopied ? (
                                       <>
@@ -1083,8 +1086,8 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                                       </>
                                     ) : (
                                       <>
-                                        <span className="tracking-wide text-neutral-200 group-hover/btn:text-white transition-colors">{item.discountCode}</span>
-                                        <Copy size={10} className="text-[#F0C41B] group-hover/btn:scale-110 transition-all" />
+                                        <span className="tracking-wider text-neutral-100 group-hover/btn:text-white transition-colors">{item.discountCode}</span>
+                                        <Copy size={10} className="text-[#F0C41B] group-hover/btn:scale-110 transition-all opacity-90 group-hover/btn:opacity-100" />
                                       </>
                                     )}
                                   </div>
