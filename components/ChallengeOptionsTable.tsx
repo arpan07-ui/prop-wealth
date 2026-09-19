@@ -794,31 +794,31 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
       {activeTab === 'challenge_options' && (
         <div className="space-y-6">
           {/* Header Row: Title & Subtitle + Toolbar (Firm Dropdown & Reset) */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
             <div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
                 Available Challenge Options
               </h2>
-              <p className="text-xs sm:text-sm text-neutral-400 mt-1.5 font-medium">
+              <p className="text-xs text-neutral-400 mt-1 font-medium">
                 Use the firm toggle to view one firm, or keep all firms selected.
               </p>
             </div>
 
-            {/* Toolbar: Info Pill + Firm Selector + Animated Reset Button */}
-            <div className="flex flex-wrap items-center gap-2.5 self-start lg:self-center">
-              <div className="hidden sm:inline-flex items-center gap-1.5 text-xs text-neutral-300 bg-[#0e1017] border border-white/10 rounded-xl px-3.5 py-2.5 font-semibold">
-                <Info size={14} className="text-[#F0C41B]" />
-                <span>Click firm name for details</span>
+            {/* Toolbar: Info Pill + Firm Selector + Reset Button */}
+            <div className="flex flex-wrap items-center gap-2 self-start lg:self-center">
+              <div className="hidden sm:inline-flex items-center gap-1.5 text-xs text-neutral-400 bg-[#0e1015] border border-white/10 rounded-lg px-2.5 py-1.5 font-medium">
+                <Info size={13} className="text-[#F0C41B]" />
+                <span>Click firm for details</span>
               </div>
 
               {/* Firm Selector Dropdown */}
-              <div className="flex items-center gap-2 bg-[#0e1017] hover:bg-[#141722] border border-white/10 hover:border-[#F0C41B]/40 rounded-xl px-3.5 py-2 transition-all shadow-sm">
-                <span className="text-xs font-bold text-neutral-400">Firm</span>
+              <div className="flex items-center gap-2 bg-[#0e1015] hover:bg-[#13161f] border border-white/10 hover:border-[#F0C41B]/40 rounded-lg px-2.5 py-1.5 transition-all">
+                <span className="text-xs font-semibold text-neutral-400">Firm</span>
                 <div className="relative">
                   <select
                     value={selectedFirm}
                     onChange={(e) => setSelectedFirm(e.target.value)}
-                    className="appearance-none bg-transparent text-white pr-6 text-xs font-extrabold focus:outline-none cursor-pointer transition-colors"
+                    className="appearance-none bg-transparent text-white pr-5 text-xs font-bold focus:outline-none cursor-pointer transition-colors"
                   >
                     {firmDropdownOptions.map((opt) => (
                       <option key={opt} value={opt} className="bg-[#111318] text-white">
@@ -826,11 +826,11 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                       </option>
                     ))}
                   </select>
-                  <ChevronDown size={13} className="absolute right-0 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                  <ChevronDown size={12} className="absolute right-0 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
                 </div>
               </div>
 
-              {/* Reset Button with Animated Spinning Icon */}
+              {/* Reset Button */}
               <button
                 onClick={() => {
                   setSelectedType('All Types');
@@ -839,33 +839,33 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                   setSortField(null);
                   setSortOrder('asc');
                 }}
-                className="group flex items-center gap-2 bg-[#0e1017] hover:bg-white/[0.08] border border-white/10 hover:border-[#F0C41B]/40 active:scale-95 text-xs font-black text-neutral-200 hover:text-[#F0C41B] rounded-xl px-4 py-2.5 transition-all duration-200 cursor-pointer select-none shadow-sm"
+                className="group flex items-center gap-1.5 bg-[#0e1015] hover:bg-white/[0.08] border border-white/10 hover:border-[#F0C41B]/40 active:scale-95 text-xs font-bold text-neutral-300 hover:text-[#F0C41B] rounded-lg px-3 py-1.5 transition-all duration-200 cursor-pointer select-none"
                 title="Reset all filters"
               >
-                <RotateCcw size={14} className="text-neutral-400 group-hover:text-[#F0C41B] transition-transform duration-500 ease-out group-hover:-rotate-180" />
+                <RotateCcw size={12} className="text-neutral-400 group-hover:text-[#F0C41B] transition-transform duration-500 ease-out group-hover:-rotate-180" />
                 <span className="tracking-wide">RESET</span>
               </button>
             </div>
           </div>
 
-          {/* Filter Pills Toolbar: BIG, BOLD, NO "TYPE:" OR "SIZE:" WORDS, YELLOW GOLD METALLIC GRADIENT */}
-          <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3.5 p-2.5 sm:p-3 bg-[#0a0b0f] border border-white/10 rounded-2xl sm:rounded-3xl shadow-[0_12px_40px_rgba(0,0,0,0.85)]">
-            {/* Step Types Filter Buttons (BIG & BOLD, NO "TYPE:" LABEL) */}
-            <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto scrollbar-none py-1">
+          {/* Filter Pills Toolbar: COMPACT & PROFESSIONAL, NO "TYPE:" OR "SIZE:" LABELS, REFINED GOLD ACCENTS */}
+          <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-2.5 p-1.5 bg-[#0a0b0e] border border-white/10 rounded-xl shadow-md">
+            {/* Step Types Filter Buttons */}
+            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
               {['All Types', 'One Step', 'Two Step', 'Instant Funded'].map((type) => {
                 const isActive = selectedType === type;
                 return (
                   <button
                     key={type}
                     onClick={() => setSelectedType(type)}
-                    className={`group relative px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-black whitespace-nowrap transition-all duration-300 cursor-pointer select-none hover:scale-[1.03] active:scale-95 ${
+                    className={`group relative px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer select-none hover:scale-[1.02] active:scale-95 ${
                       isActive
-                        ? 'bg-gradient-to-b from-[#F0C41B]/25 via-[#F0C41B]/12 to-[#F0C41B]/5 text-[#F0C41B] border-2 border-[#F0C41B] shadow-[0_0_22px_rgba(240,196,27,0.4),inset_0_1px_2px_rgba(255,235,140,0.5)] drop-shadow-[0_0_8px_rgba(240,196,27,0.35)]'
-                        : 'bg-white/[0.03] hover:bg-white/[0.08] text-neutral-300 hover:text-white border border-white/5 hover:border-white/20'
+                        ? 'bg-gradient-to-b from-[#F0C41B]/20 via-[#F0C41B]/10 to-[#F0C41B]/5 text-[#F0C41B] border border-[#F0C41B]/90 shadow-[0_2px_8px_rgba(240,196,27,0.18)]'
+                        : 'text-neutral-400 hover:text-white hover:bg-white/[0.04] border border-transparent'
                     }`}
                   >
                     {isActive && (
-                      <span className="absolute -top-[2px] inset-x-3 h-[2px] bg-gradient-to-r from-transparent via-[#ffe875] to-transparent rounded-full shadow-[0_0_8px_#F0C41B]" />
+                      <span className="absolute -top-[1px] inset-x-3 h-[1.5px] bg-gradient-to-r from-transparent via-[#ffe875] to-transparent rounded-full" />
                     )}
                     <span className="relative z-10 tracking-wide">{type}</span>
                   </button>
@@ -873,24 +873,24 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
               })}
             </div>
 
-            <div className="hidden xl:block w-[1.5px] h-9 bg-gradient-to-b from-transparent via-white/20 to-transparent shrink-0" />
+            <div className="hidden xl:block w-[1px] h-6 bg-white/10 shrink-0" />
 
-            {/* Account Sizes Filter Buttons (BIG & BOLD, NO "SIZE:" LABEL) */}
-            <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto scrollbar-none py-1">
+            {/* Account Sizes Filter Buttons */}
+            <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-0.5">
               {['All Sizes', '5K', '10K', '25K', '50K', '100K', '200K'].map((size) => {
                 const isActive = selectedSize === size;
                 return (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`group relative px-3.5 sm:px-5 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-black whitespace-nowrap transition-all duration-300 cursor-pointer select-none hover:scale-[1.03] active:scale-95 ${
+                    className={`group relative px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer select-none hover:scale-[1.02] active:scale-95 ${
                       isActive
-                        ? 'bg-gradient-to-b from-[#F0C41B]/25 via-[#F0C41B]/12 to-[#F0C41B]/5 text-[#F0C41B] border-2 border-[#F0C41B] shadow-[0_0_22px_rgba(240,196,27,0.4),inset_0_1px_2px_rgba(255,235,140,0.5)] drop-shadow-[0_0_8px_rgba(240,196,27,0.35)]'
-                        : 'bg-white/[0.03] hover:bg-white/[0.08] text-neutral-300 hover:text-white border border-white/5 hover:border-white/20'
+                        ? 'bg-gradient-to-b from-[#F0C41B]/20 via-[#F0C41B]/10 to-[#F0C41B]/5 text-[#F0C41B] border border-[#F0C41B]/90 shadow-[0_2px_8px_rgba(240,196,27,0.18)]'
+                        : 'text-neutral-400 hover:text-white hover:bg-white/[0.04] border border-transparent'
                     }`}
                   >
                     {isActive && (
-                      <span className="absolute -top-[2px] inset-x-2 h-[2px] bg-gradient-to-r from-transparent via-[#ffe875] to-transparent rounded-full shadow-[0_0_8px_#F0C41B]" />
+                      <span className="absolute -top-[1px] inset-x-2 h-[1.5px] bg-gradient-to-r from-transparent via-[#ffe875] to-transparent rounded-full" />
                     )}
                     <span className="relative z-10 tracking-wide">{size}</span>
                   </button>
@@ -899,18 +899,18 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
             </div>
           </div>
 
-          {/* Table Container: Spacious & Luxurious */}
-          <div className="w-full overflow-hidden rounded-2xl sm:rounded-3xl bg-[#090a0e] border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.9)]">
+          {/* Table Container: Refined, Compact & Professional */}
+          <div className="w-full overflow-hidden rounded-xl bg-[#08090c] border border-white/10 shadow-xl">
             <div className="overflow-x-auto scrollbar-thin">
-              <table className="w-full text-left border-collapse min-w-[980px]">
+              <table className="w-full text-left border-collapse min-w-[940px]">
                 {/* Table Header */}
                 <thead>
-                  <tr className="border-b border-white/10 bg-[#0c0d14] text-[11px] sm:text-xs font-black text-neutral-400 uppercase tracking-wider">
-                    <th className="py-4 sm:py-5 px-5 text-left font-bold min-w-[210px]">FIRM</th>
-                    <th className="py-4 sm:py-5 px-4 text-left font-bold min-w-[140px]">ACCOUNT SIZE</th>
-                    <th className="py-4 sm:py-5 px-4 text-left font-bold min-w-[115px]">PROFIT TARGET</th>
-                    <th className="py-4 sm:py-5 px-4 text-left font-bold min-w-[125px]">DRAWDOWN</th>
-                    <th className="py-4 sm:py-5 px-4 text-left font-bold min-w-[105px]">DAILY LOSS</th>
+                  <tr className="border-b border-white/10 bg-[#0c0d12] text-[11px] font-bold text-neutral-400 uppercase tracking-wider">
+                    <th className="py-3 px-4 text-left font-bold min-w-[190px]">FIRM</th>
+                    <th className="py-3 px-3.5 text-left font-bold min-w-[125px]">ACCOUNT SIZE</th>
+                    <th className="py-3 px-3.5 text-left font-bold min-w-[105px]">PROFIT TARGET</th>
+                    <th className="py-3 px-3.5 text-left font-bold min-w-[110px]">DRAWDOWN</th>
+                    <th className="py-3 px-3.5 text-left font-bold min-w-[95px]">DAILY LOSS</th>
                     <th 
                       onClick={() => {
                         if (sortField === 'challengeFee') {
@@ -921,14 +921,14 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                           setSortOrder('asc');
                         }
                       }}
-                      className="py-4 sm:py-5 px-4 text-left font-bold min-w-[125px] cursor-pointer hover:text-[#F0C41B] transition-colors select-none group/sort"
+                      className="py-3 px-3.5 text-left font-bold min-w-[115px] cursor-pointer hover:text-[#F0C41B] transition-colors select-none group/sort"
                     >
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1">
                         <span>CHALLENGE FEE</span>
                         {sortField === 'challengeFee' ? (
-                          sortOrder === 'asc' ? <ArrowUp size={13} className="text-[#F0C41B]" /> : <ArrowDown size={13} className="text-[#F0C41B]" />
+                          sortOrder === 'asc' ? <ArrowUp size={12} className="text-[#F0C41B]" /> : <ArrowDown size={12} className="text-[#F0C41B]" />
                         ) : (
-                          <ArrowUpDown size={13} className="text-neutral-500 group-hover/sort:text-[#F0C41B] transition-colors" />
+                          <ArrowUpDown size={12} className="text-neutral-500 group-hover/sort:text-[#F0C41B] transition-colors" />
                         )}
                       </div>
                     </th>
@@ -942,27 +942,27 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                           setSortOrder('asc');
                         }
                       }}
-                      className="py-4 sm:py-5 px-4 text-left font-bold min-w-[115px] cursor-pointer hover:text-[#F0C41B] transition-colors select-none group/sort"
+                      className="py-3 px-3.5 text-left font-bold min-w-[105px] cursor-pointer hover:text-[#F0C41B] transition-colors select-none group/sort"
                     >
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-1">
                         <span>TRUE COST</span>
                         {sortField === 'trueCost' ? (
-                          sortOrder === 'asc' ? <ArrowUp size={13} className="text-[#F0C41B]" /> : <ArrowDown size={13} className="text-[#F0C41B]" />
+                          sortOrder === 'asc' ? <ArrowUp size={12} className="text-[#F0C41B]" /> : <ArrowDown size={12} className="text-[#F0C41B]" />
                         ) : (
-                          <ArrowUpDown size={13} className="text-neutral-500 group-hover/sort:text-[#F0C41B] transition-colors" />
+                          <ArrowUpDown size={12} className="text-neutral-500 group-hover/sort:text-[#F0C41B] transition-colors" />
                         )}
                       </div>
                     </th>
-                    <th className="py-4 sm:py-5 px-4 text-left font-bold min-w-[135px]">POINTS</th>
-                    <th className="py-4 sm:py-5 px-5 text-center font-bold min-w-[160px]">DISCOUNT</th>
+                    <th className="py-3 px-3.5 text-left font-bold min-w-[120px]">POINTS</th>
+                    <th className="py-3 px-4 text-center font-bold min-w-[130px]">DISCOUNT</th>
                   </tr>
                 </thead>
 
                 {/* Table Body */}
-                <tbody className="divide-y divide-white/[0.06]">
+                <tbody className="divide-y divide-white/[0.05]">
                   {filteredChallenges.length === 0 ? (
                     <tr>
-                      <td colSpan={9} className="py-16 text-center text-neutral-400 text-sm">
+                      <td colSpan={9} className="py-12 text-center text-neutral-400 text-sm">
                         No challenge options found matching the selected filters.
                       </td>
                     </tr>
@@ -972,17 +972,17 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                       return (
                         <tr
                           key={item.id}
-                          className="hover:bg-white/[0.03] transition-colors group"
+                          className="hover:bg-white/[0.025] transition-colors group"
                         >
-                          {/* 1. FIRM (Logo + Name + Cyan/Blue Gradient Badge) */}
-                          <td className="py-5 px-5 align-middle">
-                            <div className="flex items-center gap-3.5">
+                          {/* 1. FIRM */}
+                          <td className="py-3.5 px-4 align-middle">
+                            <div className="flex items-center gap-3">
                               <FirmIcon name={item.firmName} url={item.firmLogo} />
                               <div>
-                                <div className="text-sm sm:text-base font-extrabold text-white group-hover:text-[#F0C41B] transition-colors">
+                                <div className="text-xs sm:text-sm font-bold text-white group-hover:text-[#F0C41B] transition-colors">
                                   {item.firmName}
                                 </div>
-                                <div className="inline-block mt-0.5 bg-gradient-to-r from-cyan-500/15 via-blue-500/15 to-indigo-500/15 border border-cyan-400/40 text-cyan-300 text-[10px] font-black px-2.5 py-0.5 rounded-full tracking-wider uppercase shadow-[0_0_10px_rgba(6,182,212,0.15)]">
+                                <div className="inline-block mt-0.5 bg-blue-500/10 border border-blue-500/30 text-blue-300 text-[9px] font-bold px-2 py-0.5 rounded tracking-wide uppercase">
                                   {item.badge}
                                 </div>
                               </div>
@@ -990,101 +990,101 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                           </td>
 
                           {/* 2. ACCOUNT SIZE */}
-                          <td className="py-5 px-4 align-middle whitespace-nowrap">
-                            <div className="text-base sm:text-lg font-black text-white tracking-tight">
+                          <td className="py-3.5 px-3.5 align-middle whitespace-nowrap">
+                            <div className="text-sm sm:text-base font-extrabold text-white tracking-tight">
                               {formatCurrency(item.accountSize)}
                             </div>
-                            <div className="inline-block mt-0.5 bg-white/5 border border-white/10 text-neutral-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full tracking-wider uppercase">
+                            <div className="inline-block mt-0.5 bg-white/5 border border-white/10 text-neutral-400 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">
                               {item.accountType}
                             </div>
                           </td>
 
                           {/* 3. PROFIT TARGET */}
-                          <td className="py-5 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm sm:text-base font-extrabold text-neutral-200">
+                          <td className="py-3.5 px-3.5 align-middle whitespace-nowrap">
+                            <div className="text-xs sm:text-sm font-semibold text-neutral-200">
                               {item.profitTarget === 0 ? 'None' : formatCurrency(item.profitTarget)}
                             </div>
                           </td>
 
-                          {/* 4. DRAWDOWN (Warm Orange/Amber Gradient Badge) */}
-                          <td className="py-5 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm sm:text-base font-extrabold text-neutral-200">
+                          {/* 4. DRAWDOWN */}
+                          <td className="py-3.5 px-3.5 align-middle whitespace-nowrap">
+                            <div className="text-xs sm:text-sm font-semibold text-neutral-200">
                               {formatCurrency(item.drawdown)}
                             </div>
-                            <div className="inline-block mt-0.5 bg-gradient-to-r from-amber-500/15 via-orange-500/15 to-amber-500/15 border border-orange-400/40 text-orange-300 text-[10px] font-black px-2.5 py-0.5 rounded-full tracking-wider uppercase shadow-[0_0_10px_rgba(249,115,22,0.15)]">
+                            <div className="inline-block mt-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">
                               {item.drawdownType}
                             </div>
                           </td>
 
                           {/* 5. DAILY LOSS */}
-                          <td className="py-5 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm sm:text-base font-extrabold text-neutral-200">
+                          <td className="py-3.5 px-3.5 align-middle whitespace-nowrap">
+                            <div className="text-xs sm:text-sm font-semibold text-neutral-200">
                               {formatCurrency(item.dailyLoss)}
                             </div>
                           </td>
 
                           {/* 6. CHALLENGE FEE */}
-                          <td className="py-5 px-4 align-middle whitespace-nowrap">
-                            <div className="text-sm sm:text-base font-extrabold text-neutral-300">
+                          <td className="py-3.5 px-3.5 align-middle whitespace-nowrap">
+                            <div className="text-xs sm:text-sm font-semibold text-neutral-300">
                               {formatCurrency(item.challengeFee)}
                             </div>
                           </td>
 
-                          {/* 7. TRUE COST (VIBRANT YELLOW GOLD METALLIC GLOW) */}
-                          <td className="py-5 px-4 align-middle whitespace-nowrap">
-                            <div className="text-base sm:text-lg font-black text-[#F0C41B] drop-shadow-[0_0_10px_rgba(240,196,27,0.5)]">
+                          {/* 7. TRUE COST */}
+                          <td className="py-3.5 px-3.5 align-middle whitespace-nowrap">
+                            <div className="text-sm sm:text-base font-extrabold text-[#F0C41B]">
                               {formatCurrency(item.trueCost)}
                             </div>
                             {item.isCheapest && (
-                              <div className="inline-flex items-center gap-1 mt-0.5 bg-gradient-to-r from-[#F0C41B]/20 via-[#ff9900]/25 to-[#F0C41B]/20 border border-[#F0C41B]/60 text-[#F0C41B] text-[10px] font-black px-2.5 py-0.5 rounded-full tracking-wider uppercase shadow-[0_0_12px_rgba(240,196,27,0.35)] animate-pulse">
+                              <div className="inline-flex items-center gap-1 mt-0.5 bg-[#F0C41B]/10 border border-[#F0C41B]/40 text-[#F0C41B] text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">
                                 ★ CHEAPEST
                               </div>
                             )}
                           </td>
 
-                          {/* 8. POINTS (FANCY CYAN/BLUE/PURPLE GRADIENT REWARDS PILL) */}
-                          <td className="py-5 px-4 align-middle whitespace-nowrap">
-                            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-500/15 via-cyan-500/15 to-indigo-500/15 border border-cyan-400/30 text-cyan-300 text-xs font-black shadow-[0_0_12px_rgba(6,182,212,0.15)]">
-                              <Sparkles size={12} className="text-cyan-400" />
+                          {/* 8. POINTS */}
+                          <td className="py-3.5 px-3.5 align-middle whitespace-nowrap">
+                            <div className="inline-flex items-center gap-1 bg-white/[0.03] border border-white/10 text-neutral-300 text-[11px] font-medium px-2 py-1 rounded-md">
+                              <Sparkles size={11} className="text-[#F0C41B]" />
                               <span>{item.pointsText || 'Coming soon pts'}</span>
                             </div>
                           </td>
 
-                          {/* 9. DISCOUNT (PREMIUM METALLIC GOLD / YELLOW / ORANGE GRADIENT CTA BUTTON) */}
-                          <td className="py-5 px-5 align-middle text-center whitespace-nowrap">
+                          {/* 9. DISCOUNT (COMPACT & PROFESSIONAL METALLIC GOLD CTA) */}
+                          <td className="py-3.5 px-4 align-middle text-center whitespace-nowrap">
                             <div className="flex justify-center">
                               <button
                                 type="button"
                                 onClick={(e) => handleCopyCode(e, item.id, item.discountCode, item.firmName, item.discountPercent)}
-                                className="group/btn relative w-[138px] sm:w-[150px] overflow-hidden rounded-2xl p-[2px] bg-gradient-to-r from-[#F0C41B] via-[#ffa114] to-[#F0C41B] shadow-[0_4px_22px_rgba(240,196,27,0.4)] hover:shadow-[0_8px_32px_rgba(240,196,27,0.7)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-300 cursor-pointer select-none"
-                                title={`Click to copy code ${item.discountCode} and claim ${item.discountPercent}% off`}
+                                className="group/btn relative w-[114px] sm:w-[122px] overflow-hidden rounded-xl p-[1.5px] bg-gradient-to-r from-[#F0C41B] via-[#f7cd34] to-[#e5a800] shadow-[0_2px_8px_rgba(0,0,0,0.4)] hover:shadow-[0_3px_12px_rgba(240,196,27,0.25)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all duration-200 cursor-pointer select-none"
+                                title={`Click to copy code ${item.discountCode}`}
                               >
-                                {/* Specular Light Sweep Shimmer Ray */}
-                                <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
+                                {/* Specular Light Ray */}
+                                <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-600 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
 
                                 {/* Outer Card Body */}
-                                <div className="rounded-[14px] bg-transparent">
+                                <div className="rounded-[10px] bg-transparent">
                                   {/* Top Banner: Discount % */}
-                                  <div className="py-1.5 px-2 text-xs sm:text-[13px] font-black text-black leading-tight uppercase tracking-tight flex items-center justify-center gap-1 drop-shadow-sm">
-                                    <Tag size={12} className="text-black stroke-[2.5]" />
+                                  <div className="py-0.5 px-1.5 text-[11px] font-black text-black leading-tight uppercase tracking-tight flex items-center justify-center gap-1">
+                                    <Tag size={10} className="text-black stroke-[2.5]" />
                                     <span>{item.discountPercent}% OFF</span>
                                   </div>
 
-                                  {/* Bottom Pill: Coupon Code with Animated Copy State */}
-                                  <div className={`rounded-xl px-3 py-1.5 text-[11px] sm:text-xs font-black flex items-center justify-between gap-1.5 transition-all duration-300 border ${
+                                  {/* Bottom Pill: Coupon Code */}
+                                  <div className={`rounded-lg px-2 py-0.5 text-[10px] font-bold flex items-center justify-between gap-1 transition-all duration-200 border ${
                                     isCopied
-                                      ? 'bg-amber-950/90 border-[#F0C41B] text-[#F0C41B] shadow-[0_0_12px_rgba(240,196,27,0.5)]'
-                                      : 'bg-[#090b0f] border-black/40 text-white group-hover/btn:bg-[#040507]'
+                                      ? 'bg-amber-950/90 border-[#F0C41B] text-[#F0C41B]'
+                                      : 'bg-[#090b0e] border-black/30 text-white group-hover/btn:bg-[#040507]'
                                   }`}>
                                     {isCopied ? (
                                       <>
-                                        <span className="text-[#F0C41B] tracking-wider text-[11px] font-extrabold animate-pulse">COPIED!</span>
-                                        <Check size={13} className="text-[#F0C41B] stroke-[3] animate-scale-in" />
+                                        <span className="text-[#F0C41B] tracking-wider text-[9px] font-extrabold">COPIED!</span>
+                                        <Check size={11} className="text-[#F0C41B] stroke-[3]" />
                                       </>
                                     ) : (
                                       <>
-                                        <span className="tracking-wide text-neutral-100 group-hover/btn:text-white transition-colors">{item.discountCode}</span>
-                                        <Copy size={12} className="text-[#F0C41B] group-hover/btn:scale-110 transition-all" />
+                                        <span className="tracking-wide text-neutral-200 group-hover/btn:text-white transition-colors">{item.discountCode}</span>
+                                        <Copy size={10} className="text-[#F0C41B] group-hover/btn:scale-110 transition-all" />
                                       </>
                                     )}
                                   </div>
