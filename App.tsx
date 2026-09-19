@@ -16,6 +16,8 @@ import CompetitionsPage from './pages/CompetitionsPage';
 import CompetitionDetailPage from './pages/CompetitionDetailPage';
 import PropFirmRulesPage from './pages/PropFirmRulesPage';
 import RewardsPage from './pages/RewardsPage';
+import CalculationPage from './pages/CalculationPage';
+import FAQPage from './pages/FAQPage';
 import AboutUsPage from './pages/AboutUsPage';
 import ContactUsPage from './pages/ContactUsPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
@@ -109,14 +111,17 @@ const MainLayout = () => {
           <Route path="/firm/:id/reviews" element={<FirmReviewsPage />} />
           <Route path="/reviews" element={<AllReviewsPage />} />
           <Route path="/blog" element={<BlogListPage />} />
+          <Route path="/blogs" element={<BlogListPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
-          <Route path="/compare" element={<ComparePage />} />
+          <Route path="/calculation" element={<CalculationPage />} />
+          <Route path="/compare" element={<CalculationPage />} />
           <Route path="/competitions" element={<CompetitionsPage />} />
           <Route path="/competition/:id" element={<CompetitionDetailPage />} />
           <Route path="/offers" element={<OffersPage />} />
+          <Route path="/deals" element={<OffersPage />} />
           <Route path="/rewards" element={<RewardsPage />} />
-          <Route path="/rules" element={<PropFirmRulesPage />} />
-          <Route path="/faq" element={<PropFirmRulesPage />} />
+          <Route path="/rules" element={<FAQPage />} />
+          <Route path="/faq" element={<FAQPage />} />
 
           {/* Info Pages */}
           <Route path="/about" element={<AboutUsPage />} />

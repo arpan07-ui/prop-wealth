@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
-import { Tag, Landmark, RotateCcw, Copy, Check, ChevronDown, ArrowUpDown, ArrowUp, ArrowDown, ExternalLink, Search, Info, CheckCircle2, Sparkles } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Tag, Landmark, RotateCcw, Copy, Check, ChevronDown, ArrowUpDown, ArrowUp, ArrowDown, ExternalLink, Search, Info, CheckCircle2, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// ── FIRM LOGO HELPER COMPONENT ──
+// ── FIRM LOGO HELPER COMPONENT (BORDERLESS, CLEAN & USES ACTUAL LOGO) ──
 const FirmIcon: React.FC<{ name: string; url?: string }> = ({ name, url }) => {
   const [imgError, setImgError] = useState(false);
 
@@ -9,7 +9,7 @@ const FirmIcon: React.FC<{ name: string; url?: string }> = ({ name, url }) => {
     const n = name.toLowerCase();
     if (n.includes('blueguardian') || n.includes('blue guardian')) {
       return (
-        <svg viewBox="0 0 24 24" className="w-5 h-5 text-cyan-400 fill-cyan-400/20" stroke="currentColor" strokeWidth="1.8">
+        <svg viewBox="0 0 24 24" className="w-6 h-6 text-cyan-400" stroke="currentColor" fill="none" strokeWidth="2">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
           <path d="M9 12l2 2 4-4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -17,35 +17,35 @@ const FirmIcon: React.FC<{ name: string; url?: string }> = ({ name, url }) => {
     }
     if (n.includes('e8')) {
       return (
-        <span className="text-white font-black text-xs tracking-tighter border border-white/20 rounded px-1 py-0.5">
+        <span className="text-white font-black text-sm tracking-tight">
           E8
         </span>
       );
     }
     if (n.includes('seat')) {
       return (
-        <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-400 flex items-center justify-center text-white text-[10px] font-black">
+        <div className="w-6 h-6 rounded bg-blue-600 flex items-center justify-center text-white text-[10px] font-black">
           FS
         </div>
       );
     }
     if (n.includes('funded trader') || n.includes('trader markets')) {
       return (
-        <div className="w-5 h-5 rotate-45 border-2 border-cyan-400 flex items-center justify-center">
-          <div className="w-2 h-2 bg-cyan-400 -rotate-45" />
+        <div className="w-5 h-5 rotate-45 bg-cyan-500/20 flex items-center justify-center">
+          <div className="w-2.5 h-2.5 bg-cyan-400 -rotate-45" />
         </div>
       );
     }
     if (n.includes('funding pips') || n.includes('fundingpips')) {
       return (
-        <div className="w-5 h-5 rounded bg-purple-600/70 flex items-center justify-center font-black text-[11px] text-white">
+        <div className="w-6 h-6 rounded bg-purple-600 flex items-center justify-center font-black text-xs text-white">
           P
         </div>
       );
     }
     if (n.includes('goat')) {
       return (
-        <div className="w-5 h-5 rounded-md bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 font-black text-[10px]">
+        <div className="w-6 h-6 rounded bg-amber-500/20 flex items-center justify-center text-amber-300 font-black text-xs">
           G
         </div>
       );
@@ -58,13 +58,13 @@ const FirmIcon: React.FC<{ name: string; url?: string }> = ({ name, url }) => {
   };
 
   return (
-    <div className="w-9 h-9 rounded-xl bg-[#0f1117] border border-white/10 flex items-center justify-center p-1.5 shrink-0 shadow-inner overflow-hidden">
+    <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
       {url && !imgError ? (
         <img
           src={url}
           alt={name}
           onError={() => setImgError(true)}
-          className="w-full h-full object-contain filter contrast-125"
+          className="w-full h-full object-contain"
         />
       ) : (
         renderFallback()
@@ -80,7 +80,7 @@ export interface FirmDealItem {
   logo: string;
   category: 'Forex' | 'Futures' | 'Crypto';
   discount: number; // e.g. 25
-  code: string; // e.g. "TZU"
+  code: string; // e.g. "WEALTH"
   affiliateUrl: string;
   description: string;
 }
@@ -92,7 +92,7 @@ export const ALL_FIRMS_DATA: FirmDealItem[] = [
     logo: 'https://cdn.prod.website-files.com/67d98b7861a3fdabba993d7d/67d98b7961a3fdabba993db4_Logo%20(74).avif',
     category: 'Forex',
     discount: 25,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://blueguardian.com',
     description: 'Get up to 25% OFF on all BlueGuardian Forex accounts.'
   },
@@ -102,7 +102,7 @@ export const ALL_FIRMS_DATA: FirmDealItem[] = [
     logo: 'https://cdn.prod.website-files.com/67d98b7861a3fdabba993d7d/67d98b7961a3fdabba993db4_Logo%20(74).avif',
     category: 'Futures',
     discount: 25,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://blueguardian.com',
     description: 'Get up to 25% OFF on BlueGuardian Futures challenges.'
   },
@@ -112,7 +112,7 @@ export const ALL_FIRMS_DATA: FirmDealItem[] = [
     logo: 'https://e8markets.com/images/logo/logo.svg',
     category: 'Futures',
     discount: 10,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://e8markets.com',
     description: 'Get up to 10% OFF on all E8 Futures combine models.'
   },
@@ -122,7 +122,7 @@ export const ALL_FIRMS_DATA: FirmDealItem[] = [
     logo: 'https://e8markets.com/images/logo/logo.svg',
     category: 'Crypto',
     discount: 10,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://e8markets.com',
     description: 'Get up to 10% OFF on E8 Crypto evaluation tiers.'
   },
@@ -132,7 +132,7 @@ export const ALL_FIRMS_DATA: FirmDealItem[] = [
     logo: 'https://e8markets.com/images/logo/logo.svg',
     category: 'Forex',
     discount: 10,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://e8markets.com',
     description: 'Get up to 10% OFF on E8 Markets FX programs.'
   },
@@ -142,27 +142,27 @@ export const ALL_FIRMS_DATA: FirmDealItem[] = [
     logo: 'https://cdn.prod.website-files.com/67b3682cc0f1f956e16efe80/67b3682cc0f1f956e16efe99_Logo%20(76).avif',
     category: 'Futures',
     discount: 50,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://fundedseat.com',
     description: 'Get up to 50% OFF on Funded Seat evaluations.'
   },
   {
     id: 'funded-trader-markets',
     name: 'Funded Trader Markets',
-    logo: 'https://atsfunded.com/ats-logo.png',
+    logo: 'https://www.google.com/s2/favicons?domain=thefundedtraderprogram.com&sz=128',
     category: 'Forex',
     discount: 65,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://thefundedtraderprogram.com',
-    description: 'Get up to 65% OFF flash discount with coupon TZU.'
+    description: 'Get up to 65% OFF flash discount with coupon WEALTH.'
   },
   {
     id: 'funding-pips',
     name: 'Funding Pips',
-    logo: 'https://media.propxwealth.com/system/b5filxasbwwrg110uhxvgv4v/675854fe6df8f98dc09b6caf_FundingPips-Logotype.svg',
+    logo: 'https://www.google.com/s2/favicons?domain=fundingpips.com&sz=128',
     category: 'Forex',
     discount: 5,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://www.fundingpips.com',
     description: 'Get up to 5% OFF on all Funding Pips evaluation tiers.'
   },
@@ -172,27 +172,27 @@ export const ALL_FIRMS_DATA: FirmDealItem[] = [
     logo: 'https://cdn.prod.website-files.com/67b3682cc0f1f956e16efe80/67b3682cc0f1f956e16efe99_Logo%20(76).avif',
     category: 'Futures',
     discount: 50,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://goatfundedtrader.com',
     description: 'Get up to 50% OFF on Goat Funded Futures challenges.'
   },
   {
     id: 'apex-trader-funding',
     name: 'Apex Trader Funding',
-    logo: 'https://cdn.prod.website-files.com/67b3682cc0f1f956e16efe80/67b3682cc0f1f956e16efe99_Logo%20(76).avif',
+    logo: 'https://www.google.com/s2/favicons?domain=apextraderfunding.com&sz=128',
     category: 'Futures',
     discount: 80,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://apextraderfunding.com',
     description: 'Get up to 80% OFF on all Apex Trader evaluations.'
   },
   {
     id: 'topstep',
     name: 'Topstep',
-    logo: 'https://atsfunded.com/ats-logo.png',
+    logo: 'https://www.google.com/s2/favicons?domain=topstep.com&sz=128',
     category: 'Futures',
     discount: 20,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://topstep.com',
     description: 'Get up to 20% OFF on Topstep Trading Combines.'
   },
@@ -202,7 +202,7 @@ export const ALL_FIRMS_DATA: FirmDealItem[] = [
     logo: 'https://fundednext.com/_next/image?url=https%3A%2F%2Fdirslur24ie1a.cloudfront.net%2Ffundednext%2FFundedNext_Logo_White_Christmas_2025.png&w=384&q=75',
     category: 'Forex',
     discount: 20,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://fundednext.com',
     description: 'Get up to 20% OFF on FundedNext Stellar accounts.'
   },
@@ -212,17 +212,17 @@ export const ALL_FIRMS_DATA: FirmDealItem[] = [
     logo: 'https://the5ers.com/images/menu/logo.svg',
     category: 'Forex',
     discount: 10,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://the5ers.com',
     description: 'Get up to 10% OFF on The5ers Bootcamp and High Stakes.'
   },
   {
     id: 'alpha-capital',
     name: 'Alpha Capital',
-    logo: 'https://alphacapitalgroup.uk/static/media/companyLogoInitials.879d8bbc8b528b1fd27761f4e43c34a0.svg',
+    logo: 'https://www.google.com/s2/favicons?domain=alphacapitalgroup.uk&sz=128',
     category: 'Forex',
     discount: 20,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://alphacapitalgroup.uk',
     description: 'Get up to 20% OFF on Alpha Capital evaluations.'
   },
@@ -232,7 +232,7 @@ export const ALL_FIRMS_DATA: FirmDealItem[] = [
     logo: 'https://fundedhive.com/wp-content/uploads/2024/02/cropped-Favicon-32x32.png',
     category: 'Forex',
     discount: 10,
-    code: 'TZU',
+    code: 'WEALTH',
     affiliateUrl: 'https://fundedhive.com',
     description: 'Get up to 10% OFF on Fundedhive Workerbee challenges.'
   }
@@ -495,6 +495,9 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // ── FILTERED FIRMS LIST (Matching Attached Image) ──
+  const [allFirmsPage, setAllFirmsPage] = useState(1);
+  const FIRMS_PER_PAGE = 7;
+
   const filteredFirms = useMemo(() => {
     const list = ALL_FIRMS_DATA.filter((firm) => {
       const matchCat = firmCategory === 'All' || firm.category === firmCategory;
@@ -510,6 +513,20 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
       return alphaAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
     });
   }, [firmCategory, searchQuery, alphaAsc]);
+
+  // Reset to first page when filtering or sorting changes
+  useEffect(() => {
+    setAllFirmsPage(1);
+  }, [firmCategory, searchQuery, alphaAsc]);
+
+  // Pagination calculation
+  const totalFirmsPages = Math.max(1, Math.ceil(filteredFirms.length / FIRMS_PER_PAGE));
+  const safeFirmsPage = Math.min(Math.max(1, allFirmsPage), totalFirmsPages);
+
+  const paginatedFirms = useMemo(() => {
+    const start = (safeFirmsPage - 1) * FIRMS_PER_PAGE;
+    return filteredFirms.slice(start, start + FIRMS_PER_PAGE);
+  }, [filteredFirms, safeFirmsPage]);
 
   // Extract unique firm names for Challenge dropdown
   const firmDropdownOptions = useMemo(() => {
@@ -661,26 +678,26 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
             </div>
           </div>
 
-          {/* Table Container: Smooth Glassy Translucent */}
-          <div className="w-full overflow-hidden rounded-xl sm:rounded-2xl bg-[#08090d]/90 backdrop-blur-xl border border-white/10 shadow-2xl">
+          {/* Table Container: Luxury Floating Cards Container */}
+          <div className="w-full overflow-hidden rounded-2xl bg-[#06080d]/60 backdrop-blur-xl border border-white/[0.08] p-2 sm:p-3 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
             <div className="overflow-x-auto scrollbar-thin">
-              <table className="w-full text-left border-collapse min-w-[760px]">
+              <table className="w-full text-left border-separate border-spacing-y-2.5 sm:border-spacing-y-3 min-w-[780px]">
                 {/* Table Header */}
                 <thead>
-                  <tr className="border-b border-white/10 bg-[#0c0d12] text-[11px] font-bold text-neutral-400 uppercase tracking-wider">
-                    <th className="py-3.5 px-4 font-bold">FIRM NAME</th>
-                    <th className="py-3.5 px-4 font-bold">CATEGORY</th>
-                    <th className="py-3.5 px-4 font-bold">OFFER</th>
-                    <th className="py-3.5 px-4 font-bold">DISCOUNT CODE</th>
-                    <th className="py-3.5 px-4 font-bold text-right">CLAIM OFFER</th>
+                  <tr className="text-[11px] font-extrabold text-neutral-400 uppercase tracking-wider">
+                    <th className="py-2.5 px-5 font-bold">FIRM NAME</th>
+                    <th className="py-2.5 px-4 font-bold">CATEGORY</th>
+                    <th className="py-2.5 px-4 font-bold">OFFER</th>
+                    <th className="py-2.5 px-4 font-bold">DISCOUNT CODE</th>
+                    <th className="py-2.5 px-5 font-bold text-right">CLAIM OFFER</th>
                   </tr>
                 </thead>
 
                 {/* Table Body */}
-                <tbody className="divide-y divide-white/[0.05]">
+                <tbody>
                   {filteredFirms.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="py-12 text-center text-neutral-400 text-sm">
+                      <td colSpan={5} className="py-12 text-center text-neutral-400 text-sm bg-[#0e111a]/80 rounded-2xl border border-white/10">
                         No prop firms found matching "{searchQuery}".
                         <div className="mt-3">
                           <button
@@ -696,39 +713,39 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                       </td>
                     </tr>
                   ) : (
-                    filteredFirms.map((firm) => {
+                    paginatedFirms.map((firm) => {
                       const isCopied = copiedId === firm.id;
                       const isInfoOpen = activeInfoId === firm.id;
                       return (
                         <tr
                           key={firm.id}
-                          className="hover:bg-white/[0.025] transition-colors group"
+                          className="group transition-colors"
                         >
-                          {/* 1. FIRM NAME */}
-                          <td className="py-3.5 px-4 align-middle">
-                            <div className="flex items-center gap-3">
+                          {/* 1. FIRM NAME (CLEAN & USES REAL LOGO) */}
+                          <td className="py-3.5 px-4 sm:px-5 align-middle bg-[#0a0c10] group-hover:bg-[#10131a] border-y border-l border-white/[0.06] group-hover:border-white/[0.12] rounded-l-2xl transition-colors">
+                            <div className="flex items-center gap-3.5">
                               <FirmIcon name={firm.name} url={firm.logo} />
-                              <span className="text-xs sm:text-sm font-bold text-white group-hover:text-[#F0C41B] transition-colors">
+                              <span className="text-sm sm:text-base font-bold text-white group-hover:text-[#F0C41B] transition-colors">
                                 {firm.name}
                               </span>
                             </div>
                           </td>
 
-                          {/* 2. CATEGORY */}
-                          <td className="py-3.5 px-4 align-middle whitespace-nowrap">
-                            <span className="inline-block bg-white/[0.04] border border-white/10 text-neutral-300 text-xs font-semibold px-2.5 py-1 rounded-lg backdrop-blur-sm">
+                          {/* 2. CATEGORY (CLEAN PILL WITHOUT DOTS) */}
+                          <td className="py-3.5 px-4 align-middle whitespace-nowrap bg-[#0a0c10] group-hover:bg-[#10131a] border-y border-white/[0.06] group-hover:border-white/[0.12] transition-colors">
+                            <span className="inline-block bg-white/[0.04] text-neutral-300 text-xs font-semibold px-3 py-1 rounded-lg border border-white/10">
                               {firm.category}
                             </span>
                           </td>
 
-                          {/* 3. OFFER */}
-                          <td className="py-3.5 px-4 align-middle whitespace-nowrap relative">
+                          {/* 3. OFFER (CLEAN WITHOUT FUZZY GLOW) */}
+                          <td className="py-3.5 px-4 align-middle whitespace-nowrap relative bg-[#0a0c10] group-hover:bg-[#10131a] border-y border-white/[0.06] group-hover:border-white/[0.12] transition-colors">
                             <div>
-                              <div className="text-[10px] text-neutral-400 font-medium leading-none">
-                                Get Upto
+                              <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider leading-none">
+                                GET UP TO
                               </div>
-                              <div className="flex items-center gap-1.5 mt-0.5">
-                                <span className="text-sm font-black text-[#F0C41B]">
+                              <div className="flex items-center gap-1.5 mt-1">
+                                <span className="text-sm sm:text-base font-black text-[#F0C41B]">
                                   {firm.discount}% OFF
                                 </span>
                                 <button
@@ -737,55 +754,49 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                                     e.stopPropagation();
                                     setActiveInfoId(isInfoOpen ? null : firm.id);
                                   }}
-                                  className="text-neutral-400 hover:text-[#F0C41B] transition-colors cursor-pointer"
+                                  className="text-neutral-400 hover:text-[#F0C41B] transition-colors cursor-pointer p-0.5"
                                   title={firm.description}
                                 >
-                                  <Info size={13} />
+                                  <Info size={14} />
                                 </button>
                               </div>
                             </div>
 
-                            {/* Info Tooltip Popover (Frosted Glass) */}
+                            {/* Info Tooltip Popover */}
                             {isInfoOpen && (
-                              <div className="absolute left-4 top-12 z-30 bg-[#0e1017]/95 border border-[#F0C41B]/30 rounded-xl p-3 shadow-2xl max-w-xs text-xs text-neutral-200 backdrop-blur-xl animate-fade-in">
+                              <div className="absolute left-4 top-12 z-30 bg-[#0e1017] border border-white/10 rounded-xl p-3.5 shadow-2xl max-w-xs text-xs text-neutral-200 animate-fade-in">
                                 <div className="font-bold text-[#F0C41B] mb-1">{firm.name} Deal Details</div>
-                                <p className="text-neutral-300">{firm.description}</p>
+                                <p className="text-neutral-300 leading-relaxed">{firm.description}</p>
                               </div>
                             )}
                           </td>
 
-                          {/* 4. DISCOUNT CODE (GLASSY PILL) */}
-                          <td className="py-3.5 px-4 align-middle whitespace-nowrap">
+                          {/* 4. DISCOUNT CODE (CLEAN CODE PILL) */}
+                          <td className="py-3.5 px-4 align-middle whitespace-nowrap bg-[#0a0c10] group-hover:bg-[#10131a] border-y border-white/[0.06] group-hover:border-white/[0.12] transition-colors">
                             <button
                               onClick={(e) => handleCopyCode(e, firm.id, firm.code, firm.name, firm.discount)}
-                              className="inline-flex items-center gap-1.5 bg-black/40 hover:bg-black/70 backdrop-blur-md border border-white/10 hover:border-[#F0C41B]/50 px-2.5 py-1 rounded-lg text-xs font-extrabold text-[#F0C41B] shadow-[inset_0_1px_2px_rgba(255,255,255,0.08)] transition-all cursor-pointer group/code select-none"
+                              className="inline-flex items-center gap-2 bg-[#06070a] hover:bg-[#11131a] border border-white/10 hover:border-white/20 px-3.5 py-1.5 rounded-lg text-xs font-bold text-[#F0C41B] transition-all cursor-pointer select-none"
                               title={`Click to copy code ${firm.code}`}
                             >
-                              <span>{isCopied ? 'COPIED!' : firm.code}</span>
+                              <span className="tracking-wide">{isCopied ? 'COPIED!' : firm.code}</span>
                               {isCopied ? (
                                 <Check size={12} className="text-[#F0C41B] stroke-[3]" />
                               ) : (
-                                <Copy size={11} className="text-[#F0C41B] opacity-80 group-hover/code:opacity-100 group-hover/code:scale-110 transition-all" />
+                                <Copy size={11} className="text-[#F0C41B] opacity-80 group-hover:opacity-100 transition-opacity" />
                               )}
                             </button>
                           </td>
 
-                          {/* 5. CLAIM OFFER (GLOSSY & GLASSY BUY NOW BUTTON) */}
-                          <td className="py-3.5 px-4 align-middle text-right whitespace-nowrap">
+                          {/* 5. CLAIM OFFER (CLEAN CRISP RECTANGULAR BUY NOW BUTTON) */}
+                          <td className="py-3.5 px-4 sm:px-5 align-middle text-right whitespace-nowrap bg-[#0a0c10] group-hover:bg-[#10131a] border-y border-r border-white/[0.06] group-hover:border-white/[0.12] rounded-r-2xl transition-colors">
                             <a
                               href={firm.affiliateUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="group/btn relative inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-2 rounded-full overflow-hidden backdrop-blur-md bg-gradient-to-b from-[#F0C41B] via-[#ffd644] to-[#d99f00] text-black font-extrabold text-xs shadow-[0_2px_10px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.4)] hover:shadow-[0_4px_18px_rgba(240,196,27,0.35),inset_0_1px_2px_rgba(255,255,255,0.6)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300 cursor-pointer select-none"
+                              className="inline-flex items-center justify-center gap-1.5 px-6 py-2 rounded-xl bg-[#F0C41B] hover:bg-[#ffe359] text-black font-black text-xs sm:text-sm tracking-wider uppercase transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-md cursor-pointer select-none"
                             >
-                              {/* Upper Specular Curved Glass Reflection */}
-                              <span className="absolute top-0 inset-x-0 h-[48%] bg-gradient-to-b from-white/35 via-white/10 to-transparent pointer-events-none rounded-t-full" />
-
-                              {/* Glass Shimmer Specular Light Sweep */}
-                              <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
-
-                              <span className="relative z-10 tracking-wide font-black">Buy Now</span>
-                              <span className="relative z-10 font-black text-sm leading-none group-hover/btn:translate-x-0.5 transition-transform">&gt;</span>
+                              <span>Buy Now</span>
+                              <span className="text-sm font-black leading-none">&gt;</span>
                             </a>
                           </td>
                         </tr>
@@ -795,6 +806,83 @@ export const ChallengeOptionsTable: React.FC<ChallengeOptionsTableProps> = ({
                 </tbody>
               </table>
             </div>
+
+            {/* ── PAGINATION CONTROLS (7 FIRMS PER PAGE) ── */}
+            {filteredFirms.length > 0 && (
+              <div className="mt-4 pt-4 border-t border-white/[0.08] px-3 sm:px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs select-none">
+                {/* Firms Count indicator */}
+                <div className="text-neutral-400 font-medium order-2 sm:order-1">
+                  Showing{' '}
+                  <span className="text-white font-bold">
+                    {(safeFirmsPage - 1) * FIRMS_PER_PAGE + 1}
+                  </span>
+                  {' '}to{' '}
+                  <span className="text-white font-bold">
+                    {Math.min(filteredFirms.length, safeFirmsPage * FIRMS_PER_PAGE)}
+                  </span>
+                  {' '}of{' '}
+                  <span className="text-[#F0C41B] font-bold">
+                    {filteredFirms.length}
+                  </span>
+                  {' '}firms
+                </div>
+
+                {/* Page Navigation Controls: Arrows & Numbered Buttons */}
+                <div className="flex items-center gap-2 order-1 sm:order-2">
+                  {/* Previous Arrow Button */}
+                  <button
+                    onClick={() => setAllFirmsPage((p) => Math.max(1, p - 1))}
+                    disabled={safeFirmsPage <= 1}
+                    className={`flex items-center justify-center w-8 h-8 rounded-lg border transition-all duration-200 cursor-pointer ${
+                      safeFirmsPage <= 1
+                        ? 'bg-white/[0.02] border-white/[0.05] text-neutral-600 cursor-not-allowed'
+                        : 'bg-[#0b0d13] border-white/10 hover:border-[#F0C41B]/50 text-neutral-300 hover:text-[#F0C41B] hover:bg-white/[0.05] active:scale-95'
+                    }`}
+                    aria-label="Previous Page"
+                    title="Previous Page"
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+
+                  {/* Page Numbers */}
+                  <div className="flex items-center gap-1.5">
+                    {Array.from({ length: totalFirmsPages }, (_, i) => i + 1).map((pageNum) => {
+                      const isActive = pageNum === safeFirmsPage;
+                      return (
+                        <button
+                          key={pageNum}
+                          onClick={() => setAllFirmsPage(pageNum)}
+                          className={`min-w-[32px] h-8 px-2.5 rounded-lg text-xs transition-all duration-200 cursor-pointer ${
+                            isActive
+                              ? 'bg-[#F0C41B] text-black font-black shadow-[0_0_12px_rgba(240,196,27,0.3)]'
+                              : 'bg-[#0b0d13] border border-white/10 text-neutral-400 hover:text-white hover:bg-white/[0.06] font-bold active:scale-95'
+                          }`}
+                          aria-label={`Go to page ${pageNum}`}
+                          aria-current={isActive ? 'page' : undefined}
+                        >
+                          {pageNum}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Next Arrow Button */}
+                  <button
+                    onClick={() => setAllFirmsPage((p) => Math.min(totalFirmsPages, p + 1))}
+                    disabled={safeFirmsPage >= totalFirmsPages}
+                    className={`flex items-center justify-center w-8 h-8 rounded-lg border transition-all duration-200 cursor-pointer ${
+                      safeFirmsPage >= totalFirmsPages
+                        ? 'bg-white/[0.02] border-white/[0.05] text-neutral-600 cursor-not-allowed'
+                        : 'bg-[#0b0d13] border-white/10 hover:border-[#F0C41B]/50 text-neutral-300 hover:text-[#F0C41B] hover:bg-white/[0.05] active:scale-95'
+                    }`}
+                    aria-label="Next Page"
+                    title="Next Page"
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -22,11 +22,11 @@ const Navbar: React.FC = () => {
 
   const primaryNavLinks = [
     { name: 'Marketplace', path: getModePath('/firms') },
-    { name: 'Rewards', path: getModePath('/rewards') },
-    { name: 'Calculator', path: getModePath('/compare') },
-    { name: 'Blogs', path: getModePath('/blog') },
-    { name: 'FAQ', path: getModePath('/faq') },
     { name: 'Hot Deals', path: getModePath('/offers'), isHot: true },
+    { name: 'Rewards', path: getModePath('/rewards') },
+    { name: 'Calculation', path: getModePath('/calculation') },
+    { name: 'FAQ', path: getModePath('/faq') },
+    { name: 'Blogs', path: getModePath('/blogs') },
   ];
 
   const isActive = (path: string) => {
