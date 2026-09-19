@@ -6,6 +6,7 @@ import { PropFirm } from '../types';
 import { useTradeMode } from '../context/TradeModeContext';
 import { FirmService } from '../lib/services';
 import PropDealsTable from '../components/PropDealsTable';
+import ChallengeOptionsTable from '../components/ChallengeOptionsTable';
 import KineticGrid from '../components/KineticGrid';
 
 // FAQ Accordion Item Component
@@ -713,24 +714,9 @@ const LandingPage: React.FC = () => {
           </div>
         </section>
 
-        {/* ════════════════ FEATURED DEALS & PROP FIRMS TABLE ════════════════ */}
-        <section className="relative z-10 py-16 px-4 sm:px-6 max-w-7xl mx-auto w-full">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#F0C41B]/10 border border-[#F0C41B]/20 text-[#F0C41B] text-xs font-bold uppercase tracking-wider mb-2">
-                <Flame size={14} /> Hot Deals & Offers
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
-                Compare Top {modeLabel} Prop Firms
-              </h2>
-            </div>
-            <Link to={getModePath('/firms')} className="inline-flex items-center gap-2 text-sm font-bold text-[#F0C41B] hover:underline">
-              <span>View All 50+ Prop Firms</span>
-              <ChevronRight size={16} />
-            </Link>
-          </div>
-
-          <PropDealsTable firms={topFirms} onCopyCode={handleCopyCode} />
+        {/* ════════════════ AVAILABLE CHALLENGE OPTIONS TABLE ════════════════ */}
+        <section className="relative z-10 py-12 sm:py-16 px-4 sm:px-6 max-w-7xl mx-auto w-full">
+          <ChallengeOptionsTable />
         </section>
 
         {/* ════════════════ REWARDS & TOKEN STORE SECTION ════════════════ */}
